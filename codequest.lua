@@ -234,7 +234,7 @@ game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
     LogoM1.Size = UDim2.new(0, 75, 0, 80)
     LogoM1.Position = UDim2.new(0,-13,0,-18)
     LogoM1.BackgroundTransparency = 7
-    LogoM1.Image = "rbxassetid://18191542775"
+    LogoM1.Image = "rbxassetid://18407473339"
     LogoM1.ZIndex = 3
     LogoM1.Parent = menu1a
 
