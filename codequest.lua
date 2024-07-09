@@ -44,7 +44,7 @@ local IncrementValue
 
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.Name = "Krasusload"
+ScreenGui.Name = "Questload"
 
 Frame1.Name = "Frame1"
 Frame1.Parent = ScreenGui
@@ -241,7 +241,7 @@ game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
     local text1 = Instance.new("TextLabel")
     text1.Size = UDim2.new(0, 0, 0, 50)
     text1.Position = UDim2.new(0, 25, 0, 21)
-    text1.Text = "KraSus Zet"
+    text1.Text = "Code Quest"
     text1.TextSize = 6
     text1.ZIndex = 4
     text1.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -400,7 +400,7 @@ game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
 	    local text661 = Instance.new("TextLabel")
 	    text661.Size = UDim2.new(0, 0, 0, 50)
 	    text661.Position = UDim2.new(0, 150, 0, 35)
-	    text661.Text = "Do you want to close KraSus Zet without"
+	    text661.Text = "Do you want to close Code Quest without"
 	    text661.TextSize = 11
 	    text661.ZIndex = 4
 	    text661.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -679,7 +679,7 @@ game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
 	local textn1 = Instance.new("TextLabel")
 	textn1.Size = UDim2.new(0, 0, 0, 50)
 	textn1.Position = UDim2.new(0, 85, 0, 48)
-	textn1.Text = "SLK Zet Team"
+	textn1.Text = "Code Quest Team"
 	textn1.TextSize = 18
 	textn1.TextColor3 = Color3.fromRGB(255, 255, 255)
 	textn1.BackgroundTransparency = 7
