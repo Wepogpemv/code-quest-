@@ -55,7 +55,7 @@ Frame1.ZIndex = 898888
 Frame1.Position = UDim2.new(0, 0, -0.301470578, 0)
 Frame1.Size = UDim2.new(1, 0, 2, 0)
 
-KrasusuZet.Name = "Krasusu Zet"
+KrasusuZet.Name = "Code Quest"
 KrasusuZet.Parent = Frame1
 KrasusuZet.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 KrasusuZet.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -63,7 +63,7 @@ KrasusuZet.BorderSizePixel = 0
 KrasusuZet.Position = UDim2.new(0.419719309, 0, 0.194122553, 0)
 KrasusuZet.Size = UDim2.new(0.159489632, 0, 0.0597381219, 0)
 KrasusuZet.Font = Enum.Font.SourceSansBold
-KrasusuZet.Text = "KraSus Zet"
+KrasusuZet.Text = "Code Quest"
 KrasusuZet.TextColor3 = Color3.fromRGB(255, 255, 255)
 KrasusuZet.TextSize = 51.000
 
@@ -188,7 +188,7 @@ game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
     local trext1 = Instance.new("TextLabel")
     trext1.Size = UDim2.new(0, 0, 0, 50)
     trext1.Position = UDim2.new(0, 85, 0, -13)
-    trext1.Text = "[June 16nd.2024] KraSus Zet Release"
+    trext1.Text = "[June 16nd.2024] Code Quest Release"
     trext1.TextSize = 7
     trext1.ZIndex = 4
     trext1.TextColor3 = Color3.fromRGB(255, 255, 255)
