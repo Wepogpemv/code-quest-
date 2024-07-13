@@ -3,7 +3,7 @@ local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/
 
 wait(1)
 Notification:Notify(
-    {Title = "Note", Description = "This executor is a joke, its a level 4 please understand :)"},
+    {Title = "Note", Description = "This executor level 8"},
     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "default"}
 )
 
