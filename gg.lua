@@ -1,7 +1,6 @@
 local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
 local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
 
-wait(1)
 Notification:Notify(
     {Title = "Note", Description = "This executor level 8"},
     {OutlineColor = Color3.fromRGB(80, 80, 80),Time = 5, Type = "default"}
