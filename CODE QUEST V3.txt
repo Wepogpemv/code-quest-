@@ -387,7 +387,7 @@ BTools.TextSize = 23.000
 
 UICorner_12.Parent = BTools
 
-BTools_2.Name = "BTools+"
+BTools_2.Name = "keyboard"
 BTools_2.Parent = sc
 BTools_2.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 BTools_2.BorderColor3 = Color3.fromRGB(255, 255, 255)
@@ -574,7 +574,7 @@ BTools.MouseButton1Click:Connect(function()
 end)
 
 BTools_2.MouseButton1Click:Connect(function()
-	loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/GGH52lan/GGH52lan/main/keyboard.txt"))()
 end)
 
 inf.MouseButton1Click:Connect(function()
