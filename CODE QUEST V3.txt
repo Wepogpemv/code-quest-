@@ -387,7 +387,7 @@ BTools.TextSize = 23.000
 
 UICorner_12.Parent = BTools
 
-BTools_2.Name = "keyboard"
+BTools_2.Name = "KeyBoard"
 BTools_2.Parent = sc
 BTools_2.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
 BTools_2.BorderColor3 = Color3.fromRGB(255, 255, 255)
@@ -395,7 +395,7 @@ BTools_2.BorderSizePixel = 0
 BTools_2.Position = UDim2.new(0.0279999487, 0, 0.613000035, 0)
 BTools_2.Size = UDim2.new(0.937823832, 0, 0.16731517, 0)
 BTools_2.Font = Enum.Font.SourceSans
-BTools_2.Text = "keyboard"
+BTools_2.Text = "KeyBoard"
 BTools_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 BTools_2.TextSize = 23.000
 
