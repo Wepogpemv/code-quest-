@@ -561,6 +561,26 @@ TextButton_3.MouseButton1Click:Connect(function()
 	TextBox.Text = ""
 end)
 
+dexbyp.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+end)
+
+dexv2.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+end)
+
+BTools.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/BTools.txt"))()
+end)
+
+BTools_2.MouseButton1Click:Connect(function()
+	loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
+end)
+
+inf.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end)
+
 TextButton_4.MouseButton1Click:Connect(function()
       local scriptString = getclipboard()
       local success, errorMsg = pcall(function()
@@ -764,5 +784,4 @@ closeButton.MouseButton1Click:Connect(function()
 Gui1oo:Destroy()
 frrame:Destroy()
 end)
-
 
