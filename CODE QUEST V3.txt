@@ -1,3 +1,4 @@
+local function sex()
 local dragSpeed = 0.25
 local UIS = cloneref(game:GetService('UserInputService'))
 local TweenService = cloneref(game:GetService('TweenService'))
@@ -622,3 +623,146 @@ end
 editor:GetPropertyChangedSignal("Text"):Connect(applySyntaxHighlighting)
 
 applySyntaxHighlighting()
+end
+
+local HttpService = cloneref(game:GetService("HttpService"))
+local player = game.Players.LocalPlayer
+local menu = Instance.new("ScreenGui")
+menu.Parent = gethui()
+
+local frrame = Instance.new("Frame")
+frrame.Size = UDim2.new(1, 0, 2, 0)
+frrame.Position = UDim2.new(0, 0, 0, -50)
+frrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frrame.BackgroundTransparency = 0.6
+frrame.BorderSizePixel = 0
+frrame.Parent = menu
+frrame.Visible = true
+
+local Gui1oo = Instance.new("Frame")
+Gui1oo.Size = UDim2.new(0, 370, 0, 200)
+Gui1oo.Position = UDim2.new(0.5, -185, 0.5, -100)
+Gui1oo.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Gui1oo.BackgroundTransparency = 0.1
+Gui1oo.BorderSizePixel = 2
+Gui1oo.Parent = menu
+Gui1oo.Visible = true
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 3)
+corner.Parent = Gui1oo
+
+local text1 = Instance.new("TextLabel")
+text1.Size = UDim2.new(0, 0, 0, 50)
+text1.Position = UDim2.new(0,180,0,20)
+text1.Text = "Code Quest"
+text1.TextSize = 30
+text1.TextColor3 = Color3.fromRGB(220,220,220)
+text1.BackgroundTransparency = 10
+text1.Parent = Gui1oo
+
+local text2 = Instance.new("TextLabel")
+text2.Size = UDim2.new(0, 0, 0, 50)
+text2.Position = UDim2.new(0,5,0,-15)
+text2.Text = "Version: 1.0.0"
+text2.TextSize = 9
+text2.TextColor3 = Color3.fromRGB(230,230,230)
+text2.BackgroundTransparency = 10
+text2.Parent = Gui1oo
+text2.TextXAlignment = Enum.TextXAlignment.Left
+
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 20, 0, 20)
+closeButton.Position = UDim2.new(1, -25, 0, 5)
+closeButton.Text = "X"
+closeButton.TextSize = 18
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+closeButton.Parent = Gui1oo
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 3)
+corner.Parent = closeButton
+
+local keyInput = Instance.new("TextBox")
+keyInput.Size = UDim2.new(0, 333, 0, 30)
+keyInput.Position = UDim2.new(0,20,0,80)
+keyInput.PlaceholderText = "Enter key"
+keyInput.Text = ""
+keyInput.Parent = Gui1oo
+keyInput.TextColor3 = Color3.fromRGB(235,235,235)
+keyInput.BackgroundColor3 = Color3.fromRGB(24,24,24)
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 3)
+corner.Parent = keyInput
+
+local keyButton = Instance.new("TextButton")
+keyButton.Size = UDim2.new(0, 150, 0, 40)
+keyButton.Position = UDim2.new(0,203,0,130)
+keyButton.Text = "Continue"
+keyButton.TextSize = 17
+keyButton.Parent = Gui1oo
+keyButton.TextColor3 = Color3.fromRGB(235,235,235)
+keyButton.BackgroundColor3 = Color3.fromRGB(24,24,24)
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 3)
+corner.Parent = keyButton
+
+local copis = Instance.new("TextButton")
+copis.Size = UDim2.new(0, 150, 0, 40)
+copis.Position = UDim2.new(0,20,0,130)
+copis.Text = "Copy Link"
+copis.TextSize = 17
+copis.Parent = Gui1oo
+copis.TextColor3 = Color3.fromRGB(235,235,235)
+copis.BackgroundColor3 = Color3.fromRGB(24,24,24)
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 3)
+corner.Parent = copis
+local hwid = string.gsub(game:GetService("RbxAnalyticsService"):GetClientId(), "-", "")
+copis.MouseButton1Click:Connect(function()
+	setclipboard("https://keyrblx.com/getkey/AlysseAndroid?hwid=" .. hwid)
+end)
+
+if player.Name == "proplayeronehun" then
+	Gui1oo:Destroy()
+	frrame:Destroy()
+	sex()
+end
+
+local a = game:HttpGet("https://api.keyrblx.com/api/key/me?name=AlysseAndroid&hwid=" .. hwid)
+local data = HttpService:JSONDecode(a)
+if data.finish == true then
+	Gui1oo:Destroy()
+	frrame:Destroy()
+	sex()
+end
+
+
+
+keyButton.MouseButton1Click:Connect(function()
+local a = game:HttpGet("https://api.keyrblx.com/api/key/me?name=AlysseAndroid&hwid=" .. hwid)
+local data = HttpService:JSONDecode(a)
+if data.finish == true then
+	keyInput.Text = "Correct key"
+	wait(1)
+	Gui1oo:Destroy()
+	frrame:Destroy()
+	sex()
+else
+	keyInput.PlaceholderText = "Invalid key"
+	keyInput.Text = ""
+	wait(3)
+	keyInput.PlaceholderText = "Enter key"
+end
+end)
+
+closeButton.MouseButton1Click:Connect(function()
+Gui1oo:Destroy()
+frrame:Destroy()
+end)
+
+
