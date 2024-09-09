@@ -747,7 +747,7 @@ copis.MouseButton1Click:Connect(function()
 	setclipboard("https://keyrblx.com/getkey/AlysseAndroid?hwid=" .. hwid)
 end)
 
-if player.Name == "proplayeronehun" then
+if player.Name == "proplayeronehu" then
 	Gui1oo:Destroy()
 	frrame:Destroy()
 	sex()
