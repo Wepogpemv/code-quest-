@@ -1,4 +1,4 @@
-	local function sex()
+	local function start()
 	local dragSpeed = 0.25
 	local UIS = cloneref(game:GetService('UserInputService'))
 	local TweenService = cloneref(game:GetService('TweenService'))
@@ -621,7 +621,7 @@
 	local keywords = {
 		{words = {"and", "break", "do", "else", "elseif", "end", "false", "for", "function", "goto", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"}, color = Color3.fromRGB(255, 0, 0)},
 		{words = {"FireServer", "getrawmetatable", "game", "workspace", "script", "math", "string", "table", "print", "wait", "BrickColor", "Color3", "next", "pairs", "ipairs", "select", "unpack", "Instance", "Vector2", "Vector3", "CFrame", "Ray", "UDim2", "Enum", "assert", "error", "warn", "tick", "loadstring", "_G", "shared", "getfenv", "setfenv", "newproxy", "setmetatable", "getmetatable", "os", "debug", "pcall", "ypcall", "xpcall", "rawequal", "rawset", "rawget", "tonumber", "tostring", "type", "typeof", "coroutine", "delay", "require", "spawn", "time"}, color = Color3.fromRGB(0, 255, 0)},
-		{words = {"cache.invalidate", "cache.iscached", "cache.replace", "cloneref", "compareinstances", "checkcaller", "clonefunction", "getcallingscript", "getscriptclosure", "hookfunction", "iscclosure", "islclosure", "isexecutorclosure", "loadstring", "newcclosure", "rconsoleclear", "rconsolecreate", "rconsoledestroy", "rconsoleinput", "rconsoleprint", "rconsolesettitle", "crypt.base64encode", "crypt.base64decode", "crypt.encrypt", "crypt.decrypt", "crypt.generatebytes", "crypt.generatekey", "crypt.hash", "debug.getconstant", "debug.getconstants", "debug.getinfo", "debug.getproto", "debug.getprotos", "debug.getstack", "debug.getupvalue", "debug.getupvalues", "debug.setconstant", "debug.setstack", "debug.setupvalue", "readfile", "listfiles", "writefile", "makefolder", "appendfile", "isfile", "isfolder", "delfolder", "delfile", "loadfile", "dofile", "isrbxactive", "mouse1click", "mouse1press", "mouse1release", "mouse2click", "mouse2press", "mouse2release", "mousemoveabs", "mousemoverel", "mousescroll", "fireclickdetector", "getcallbackvalue", "getconnections", "getcustomasset", "gethiddenproperty", "sethiddenproperty", "gethui", "getinstances", "getnilinstances", "isscriptable", "setscriptable", "setrbxclipboard", "getrawmetatable", "hookmetamethod", "getnamecallmethod", "isreadonly", "setrawmetatable", "setreadonly", "identifyexecutor", "lz4compress", "lz4decompress", "messagebox", "queue_on_teleport", "request", "setclipboard", "setfpscap", "getgc", "getgenv", "getloadedmodules", "getrenv", "getrunningscripts", "getscriptbytecode", "getscripthash", "getscripts", "getsenv", "getthreadidentity", "setthreadidentity", "Drawing", "Drawing.new", "Drawing.Fonts", "isrenderobj", "getrenderproperty", "setrenderproperty", "cleardrawcache", "WebSocket", "WebSocket.connect"}, color = Color3.fromRGB(0, 0, 255)}
+		{words = {"cache.invalidate", "cache.iscached", "cache.replace", "cloneref", "compareinstances", "checkcaller", "clonefunction", "getcallingscript", "getscriptclosure", "hookfunction", "iscclosure", "islclosure", "istartecutorclosure", "loadstring", "newcclosure", "rconsoleclear", "rconsolecreate", "rconsoledestroy", "rconsoleinput", "rconsoleprint", "rconsolesettitle", "crypt.base64encode", "crypt.base64decode", "crypt.encrypt", "crypt.decrypt", "crypt.generatebytes", "crypt.generatekey", "crypt.hash", "debug.getconstant", "debug.getconstants", "debug.getinfo", "debug.getproto", "debug.getprotos", "debug.getstack", "debug.getupvalue", "debug.getupvalues", "debug.setconstant", "debug.setstack", "debug.setupvalue", "readfile", "listfiles", "writefile", "makefolder", "appendfile", "isfile", "isfolder", "delfolder", "delfile", "loadfile", "dofile", "isrbxactive", "mouse1click", "mouse1press", "mouse1release", "mouse2click", "mouse2press", "mouse2release", "mousemoveabs", "mousemoverel", "mousescroll", "fireclickdetector", "getcallbackvalue", "getconnections", "getcustomasset", "gethiddenproperty", "sethiddenproperty", "gethui", "getinstances", "getnilinstances", "isscriptable", "setscriptable", "setrbxclipboard", "getrawmetatable", "hookmetamethod", "getnamecallmethod", "isreadonly", "setrawmetatable", "setreadonly", "identifyexecutor", "lz4compress", "lz4decompress", "messagebox", "queue_on_teleport", "request", "setclipboard", "setfpscap", "getgc", "getgenv", "getloadedmodules", "getrenv", "getrunningscripts", "getscriptbytecode", "getscripthash", "getscripts", "getsenv", "getthreadidentity", "setthreadidentity", "Drawing", "Drawing.new", "Drawing.Fonts", "isrenderobj", "getrenderproperty", "setrenderproperty", "cleardrawcache", "WebSocket", "WebSocket.connect"}, color = Color3.fromRGB(0, 0, 255)}
 	}
 
 	local defaultColor = Color3.fromRGB(255, 255, 255)
@@ -693,11 +693,11 @@ local UICorner_7 = Instance.new("UICorner")
 sc.Name = "sc"
 sc.Parent = Frame1
 sc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-sc.BackgroundTransparency = 1.000
+sc.BackgroundTransparency = 1
 sc.BorderColor3 = Color3.fromRGB(0, 0, 0)
 sc.BorderSizePixel = 0
-sc.Position = UDim2.new(1.04512253e-07, 0, 0.0108303251, 0)
-sc.Size = UDim2.new(0.906392634, 0, 0.985559583, 0)
+sc.Position = UDim2.new(0, 0, 0.01, 0)
+sc.Size = UDim2.new(0.906392634, 0, 0.985559583, 0) -- Уменьшил размер фрейма
 sc.Visible = false
 ScrollingFrame.Parent = sc
 ScrollingFrame.Active = true
@@ -706,58 +706,59 @@ ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ScrollingFrame.BorderSizePixel = 0
 ScrollingFrame.Position = UDim2.new(0.0116163949, 0, 0.00459968671, 0)
 ScrollingFrame.Size = UDim2.new(0.969980061, 0, 0.771001935, 0)
-ScrollingFrame.CanvasSize = UDim2.new(0, 900, 0, 412)
 UICorner.Parent = ScrollingFrame
 
 Frame.Parent = ScrollingFrame
 Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Frame.BorderSizePixel = 0
-Frame.Size = UDim2.new(0, 648, 0, 55)
+Frame.Size = UDim2.new(1, -20, 0, 55) -- Установил размер фрейма в процентах от ширины родителя
+Frame.Position = UDim2.new(0, 10, 0, 10) -- Отступы от краёв
 
 UICorner_2.Parent = Frame
 
 TextLabel.Parent = Frame
 TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.BackgroundTransparency = 1.000
+TextLabel.BackgroundTransparency = 1
 TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.BorderSizePixel = 0
-TextLabel.Size = UDim2.new(0.30864197, 0, 0.909090936, 0)
+TextLabel.Size = UDim2.new(0.5, -10, 1, 0) -- Назначаем размер как 50% от ширины фрейма
+TextLabel.Position = UDim2.new(0, 10, 0, 0) -- Отступ слева
 TextLabel.Font = Enum.Font.SourceSans
 TextLabel.Text = "Script Name"
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.TextScaled = true
-TextLabel.TextSize = 14.000
+TextLabel.TextSize = 14
 TextLabel.TextWrapped = true
 
 TextButton.Parent = Frame
 TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextButton.BackgroundTransparency = 1.000
+TextButton.BackgroundTransparency = 1
 TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextButton.BorderSizePixel = 0
-TextButton.Position = UDim2.new(0.559875607, 0, 0.129629627, 0)
-TextButton.Size = UDim2.new(0.140432104, 0, 0.727272749, 0)
+TextButton.Position = UDim2.new(0.55, 0, 0.15, 0)
+TextButton.Size = UDim2.new(0.2, -10, 0.7, 0) -- Кнопка "Delete" занимает 20% ширины фрейма
 TextButton.Font = Enum.Font.SourceSans
 TextButton.Text = "Delete"
 TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton.TextScaled = true
-TextButton.TextSize = 14.000
+TextButton.TextSize = 14
 TextButton.TextWrapped = true
 
 UICorner_3.Parent = TextButton
 
 TextButton_2.Parent = Frame
 TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextButton_2.BackgroundTransparency = 1.000
+TextButton_2.BackgroundTransparency = 1
 TextButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextButton_2.BorderSizePixel = 0
-TextButton_2.Position = UDim2.new(0.713841259, 0, 0.129629627, 0)
-TextButton_2.Size = UDim2.new(0.268518507, 0, 0.727272749, 0)
+TextButton_2.Position = UDim2.new(0.8, 0, 0.15, 0)
+TextButton_2.Size = UDim2.new(0.2, -10, 0.7, 0) -- Кнопка "Execute" занимает 20% ширины фрейма
 TextButton_2.Font = Enum.Font.SourceSans
 TextButton_2.Text = "Execute"
 TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_2.TextScaled = true
-TextButton_2.TextSize = 14.000
+TextButton_2.TextSize = 14
 TextButton_2.TextWrapped = true
 
 UICorner_4.Parent = TextButton_2
@@ -765,12 +766,13 @@ UICorner_4.Parent = TextButton_2
 UIListLayout.Parent = ScrollingFrame
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 UIListLayout.Padding = UDim.new(0, 4)
+
 Frame_2.Parent = sc
 Frame_2.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
 Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Frame_2.BorderSizePixel = 0
-Frame_2.Position = UDim2.new(0.0130686378, 0, 0.862787902, 0)
-Frame_2.Size = UDim2.new(0.969980061, 0, 0.12349382, 0)
+Frame_2.Position = UDim2.new(0, 0, 0.83, 0)
+Frame_2.Size = UDim2.new(1, 0, 0.15, 0) -- Уменьшил размер фрейма
 
 UICorner_5.Parent = Frame_2
 
@@ -904,39 +906,54 @@ local UICorner_4 = Instance.new("UICorner")
 UICorner_4.Parent = TextButton_2
 
 local function UpdateScriptList()
+    -- Очистка старых элементов
     for _, child in pairs(ScrollingFrameScripts:GetChildren()) do
         if child:IsA("Frame") and child ~= TemplateFrame then
             child:Destroy()
         end
     end
-	if not isfolder("scripts") then
-		makefolder("scripts")
-	end
+    
+    -- Создание папки, если её нет
+    if not isfolder("scripts") then
+        makefolder("scripts")
+    end
+
+    -- Получение списка файлов
     local files = listfiles("scripts/")
 
     for _, file in ipairs(files) do
-
         local scriptName = file:match("([^/]+)%.lua$")
-
         local newFrame = TemplateFrame:Clone()
+        
+        -- Настройка размеров и позиций
+        newFrame.Size = UDim2.new(1, 0, 0, 55)
+        newFrame.TextLabel.Size = UDim2.new(0.4, 0, 1, 0)
+        newFrame.TextButton.Size = UDim2.new(0.2, 0, 0.7, 0)
+        newFrame.TextButton_2.Size = UDim2.new(0.3, 0, 0.7, 0)
+        
+        -- Пропорции для кнопок
+        newFrame.TextButton.Position = UDim2.new(0.4, 0, 0.15, 0)
+        newFrame.TextButton_2.Position = UDim2.new(0.65, 0, 0.15, 0)
+        
         newFrame.TextLabel.Text = scriptName
         newFrame.Parent = ScrollingFrameScripts
         
+        -- Обработчики событий
         newFrame.TextButton.MouseButton1Click:Connect(function()
             delfile(file)
             UpdateScriptList()
         end)
 
-        newFrame.TextButton_2.MouseButton1Click:Connect(function()            
+        newFrame.TextButton_2.MouseButton1Click:Connect(function()
             local scriptString = readfile(file)
-			local success, errorMsg = pcall(function()
-				local scriptFunc = loadstring(scriptString)
-				local result = scriptFunc()
-			end)
+            local success, errorMsg = pcall(function()
+                local scriptFunc = loadstring(scriptString)
+                local result = scriptFunc()
+            end)
 
-			if not success then
-				warn("Error" .. errorMsg)
-			end
+            if not success then
+                warn("Error: " .. errorMsg)
+            end
         end)
     end
 end
@@ -946,7 +963,7 @@ CreateButton.MouseButton1Click:Connect(function()
     local scriptContent = TextBoxScriptContent.Text
 
     if scriptName ~= "" and scriptContent ~= "" then
-        writefile("scripts/"..scriptName..".lua", scriptContent)
+        writefile("scripts/" .. scriptName .. ".lua", scriptContent)
         UpdateScriptList()
         TextBoxScriptName.Text = ""
         TextBoxScriptContent.Text = ""
@@ -955,10 +972,7 @@ CreateButton.MouseButton1Click:Connect(function()
     end
 end)
 
-
 UpdateScriptList()
-
-
 
 	ImageButton.MouseButton1Click:Connect(function()
 		exec.Visible = false
@@ -1110,7 +1124,7 @@ UpdateScriptList()
 	if player.Name == "proplayeronehun" then
 		Gui1oo:Destroy()
 		frrame:Destroy()
-		sex()
+		start()
 	end
 
 	local a = game:HttpGet("https://api.keyrblx.com/api/key/me?name=AlysseAndroid&hwid=" .. hwid)
@@ -1118,7 +1132,7 @@ UpdateScriptList()
 	if data.finish == true then
 		Gui1oo:Destroy()
 		frrame:Destroy()
-		sex()
+		start()
 	end
 
 
@@ -1131,7 +1145,7 @@ UpdateScriptList()
 		wait(1)
 		Gui1oo:Destroy()
 		frrame:Destroy()
-		sex()
+		start()
 	else
 		keyInput.PlaceholderText = "Invalid key"
 		keyInput.Text = ""
@@ -1144,4 +1158,3 @@ UpdateScriptList()
 	Gui1oo:Destroy()
 	frrame:Destroy()
 	end)
-
