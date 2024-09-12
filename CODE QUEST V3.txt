@@ -1125,12 +1125,14 @@ UpdateScriptList()
 		Gui1oo:Destroy()
 		frrame:Destroy()
 		start()
+return
 	end
 local d = game:HttpGet("https://github.com/Wepogpemv/code-quest-/blob/main/key%20system.txt")
 if string.find(d, "true") then
 Gui1oo:Destroy()
-		frrame:Destroy()
-		start()
+frrame:Destroy()
+start()
+return
 end
 	local a = game:HttpGet("https://api.keyrblx.com/api/key/me?name=AlysseAndroid&hwid=" .. hwid)
 	local data = HttpService:JSONDecode(a)
@@ -1138,6 +1140,7 @@ end
 		Gui1oo:Destroy()
 		frrame:Destroy()
 		start()
+                return
 	end
 
 
