@@ -191,7 +191,7 @@ G2L["1b"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.GetKey.ImageLabel
 G2L["1c"] = Instance.new("ImageLabel", G2L["16"]);
 G2L["1c"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
-G2L["1c"]["Image"] = [[rbxassetid://12730592157]];
+G2L["1c"]["Image"] = [[rbxassetid://125787475899820]];
 G2L["1c"]["Size"] = UDim2.new(0.14388921856880188, 0, 0.4959585964679718, 0);
 G2L["1c"]["BackgroundTransparency"] = 1;
 G2L["1c"]["Position"] = UDim2.new(0.6577792763710022, 0, 0.2479792982339859, 0);
