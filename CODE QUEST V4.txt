@@ -1405,160 +1405,164 @@ end
 
 --тута здеся гуи 
 local function createScriptFrame(scriptData)
-local poiname = Instance.new("TextLabel")
-local poicopy = Instance.new("TextButton")
+    local poiname = Instance.new("TextLabel")
+    local poicopy = Instance.new("TextButton")
+    local poiexe = Instance.new("TextButton")
+    local baner = Instance.new("ImageButton")
+    local poiedi = Instance.new("TextButton")
+    local poidel = Instance.new("TextButton")
+    local poiscr = Instance.new("Frame")
 
-local poiexe = Instance.new("TextButton")
+    poiscr.Name = "poiscr"
+    poiscr.Parent = pois
+    poiscr.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    poiscr.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    poiscr.BorderSizePixel = 0
+    poiscr.Position = UDim2.new(0, 0, 0, 0)  -- Исправлено на 0, чтобы не было отрицательного значения
+    poiscr.Size = UDim2.new(0, 656, 0, 210)
+    local UICorner_30 = Instance.new("UICorner")
+    UICorner_30.Parent = poiscr
 
-local baner = Instance.new("ImageButton")
+    poiname.Name = "poiname"
+    poiname.Parent = poiscr
+    poiname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    poiname.BackgroundTransparency = 1.000
+    poiname.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    poiname.BorderSizePixel = 0
+    poiname.Position = UDim2.new(-0.012, 0, 0.87, 0)
+    poiname.Size = UDim2.new(0.20, 0, 0.12, 0)
+    poiname.Font = Enum.Font.SourceSans
+    poiname.Text = scriptData.title or "Script name"
+    poiname.TextColor3 = Color3.fromRGB(255, 255, 255)
+    poiname.TextScaled = true
+    poiname.TextSize = 14.000
+    poiname.TextWrapped = true
 
-local poiedi = Instance.new("TextButton")
+    poicopy.Name = "poicopy"
+    poicopy.Parent = poiscr
+    poicopy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    poicopy.BackgroundTransparency = 1.000
+    poicopy.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    poicopy.BorderSizePixel = 0
+    poicopy.Position = UDim2.new(0.736, 0, 0.18, 0)
+    poicopy.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poicopy.Font = Enum.Font.SourceSans
+    poicopy.Text = "Copy"
+    poicopy.TextColor3 = Color3.fromRGB(255, 255, 255)
+    poicopy.TextScaled = true
+    poicopy.TextSize = 14.000
+    poicopy.TextWrapped = true
+    local UICorner_31 = Instance.new("UICorner")
+    UICorner_31.Parent = poicopy
 
-local poidel = Instance.new("TextButton")
+    poiexe.Name = "poiexe"
+    poiexe.Parent = poiscr
+    poiexe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    poiexe.BackgroundTransparency = 1.000
+    poiexe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    poiexe.BorderSizePixel = 0
+    poiexe.Position = UDim2.new(0.736, 0, 0, 0)  -- Исправлено значение позиции Y
+    poiexe.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poiexe.Font = Enum.Font.SourceSans
+    poiexe.Text = "Execute"
+    poiexe.TextColor3 = Color3.fromRGB(255, 255, 255)
+    poiexe.TextScaled = true
+    poiexe.TextSize = 14.000
+    poiexe.TextWrapped = true
+    local UICorner_32 = Instance.new("UICorner")
+    UICorner_32.Parent = poiexe
 
-local poiscr = Instance.new("Frame")
-poiscr.Name = "poiscr"
-poiscr.Parent = pois
-poiscr.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-poiscr.BorderColor3 = Color3.fromRGB(0, 0, 0)
-poiscr.BorderSizePixel = 0
-poiscr.Position = UDim2.new(0, 0, -2.02326487e-06, 0)
-poiscr.Size = UDim2.new(0, 656, 0, 210)
-local UICorner_30 = Instance.new("UICorner")
-UICorner_30.Parent = poiscr
+    baner.Name = "baner"
+    baner.Parent = poiscr
+    baner.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    baner.BackgroundTransparency = 1.000
+    baner.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    baner.BorderSizePixel = 0
+    baner.Size = UDim2.new(0.72, 0, 0.86, 0)
+    local UICorner_33 = Instance.new("UICorner")
+    UICorner_33.Parent = baner
 
-poiname.Name = "poiname"
-poiname.Parent = poiscr
-poiname.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-poiname.BackgroundTransparency = 1.000
-poiname.BorderColor3 = Color3.fromRGB(0, 0, 0)
-poiname.BorderSizePixel = 0
-poiname.Position = UDim2.new(-0.0121952146, 0, 0.873761833, 0)
-poiname.Size = UDim2.new(0.202743903, 0, 0.119047619, 0)
-poiname.Font = Enum.Font.SourceSans
-poiname.Text = scriptData.title or "Script name"
-poiname.TextColor3 = Color3.fromRGB(255, 255, 255)
-poiname.TextScaled = true
-poiname.TextSize = 14.000
-poiname.TextWrapped = true
+    poiedi.Name = "poiedi"
+    poiedi.Parent = poiscr
+    poiedi.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    poiedi.BackgroundTransparency = 1.000
+    poiedi.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    poiedi.BorderSizePixel = 0
+    poiedi.Position = UDim2.new(0.736, 0, 0.37, 0)
+    poiedi.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poiedi.Font = Enum.Font.SourceSans
+    poiedi.Text = "To editor"
+    poiedi.TextColor3 = Color3.fromRGB(255, 255, 255)
+    poiedi.TextScaled = true
+    poiedi.TextSize = 14.000
+    poiedi.TextWrapped = true
+    local UICorner_34 = Instance.new("UICorner")
+    UICorner_34.Parent = poiedi
 
-poicopy.Name = "poicopy"
-poicopy.Parent = poiscr
-poicopy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-poicopy.BackgroundTransparency = 1.000
-poicopy.BorderColor3 = Color3.fromRGB(0, 0, 0)
-poicopy.BorderSizePixel = 0
-poicopy.Position = UDim2.new(0.736000061, 0, 0.188047573, 0)
-poicopy.Size = UDim2.new(0.259146333, 0, 0.147619054, 0)
-poicopy.Font = Enum.Font.SourceSans
-poicopy.Text = "Copy"
-poicopy.TextColor3 = Color3.fromRGB(255, 255, 255)
-poicopy.TextScaled = true
-poicopy.TextSize = 14.000
-poicopy.TextWrapped = true
-local UICorner_31 = Instance.new("UICorner")
-UICorner_31.Parent = poicopy
+    poidel.Name = "poidel"
+    poidel.Parent = poiscr
+    poidel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    poidel.BackgroundTransparency = 1.000
+    poidel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    poidel.BorderSizePixel = 0
+    poidel.Position = UDim2.new(0.736, 0, 0.57, 0)
+    poidel.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poidel.Font = Enum.Font.SourceSans
+    poidel.Text = "Delete"
+    poidel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    poidel.TextScaled = true
+    poidel.TextSize = 14.000
+    poidel.TextWrapped = true
+    local UICorner_35 = Instance.new("UICorner")
+    UICorner_35.Parent = poidel
 
-poiexe.Name = "poiexe"
-poiexe.Parent = poiscr
-poiexe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-poiexe.BackgroundTransparency = 1.000
-poiexe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-poiexe.BorderSizePixel = 0
-poiexe.Position = UDim2.new(0.736000061, 0, -0.00242861803, 0)
-poiexe.Size = UDim2.new(0.259146333, 0, 0.147619054, 0)
-poiexe.Font = Enum.Font.SourceSans
-poiexe.Text = "Execute"
-poiexe.TextColor3 = Color3.fromRGB(255, 255, 255)
-poiexe.TextScaled = true
-poiexe.TextSize = 14.000
-poiexe.TextWrapped = true
-local UICorner_32 = Instance.new("UICorner")
-UICorner_32.Parent = poiexe
+    -- Подключение кнопок
+    poicopy.MouseButton1Click:Connect(function()
+        setclipboard(scriptData.script)
+    end)
 
-baner.Name = "baner"
-baner.Parent = poiscr
-baner.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-baner.BackgroundTransparency = 1.000
-baner.BorderColor3 = Color3.fromRGB(0, 0, 0)
-baner.BorderSizePixel = 0
-baner.Size = UDim2.new(0.725609779, 0, 0.86190474, 0)
-local UICorner_33 = Instance.new("UICorner")
-UICorner_33.Parent = baner
+    poiexe.MouseButton1Click:Connect(function()
+        local success, err = pcall(function()
+            loadstring(scriptData.script)()
+        end)
+        if not success then
+            warn("Error executing script: " .. err)
+        end
+    end)
 
-poiedi.Name = "poiedi"
-poiedi.Parent = poiscr
-poiedi.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-poiedi.BackgroundTransparency = 1.000
-poiedi.BorderColor3 = Color3.fromRGB(0, 0, 0)
-poiedi.BorderSizePixel = 0
-poiedi.Position = UDim2.new(0.736000061, 0, 0.368999958, 0)
-poiedi.Size = UDim2.new(0.259146333, 0, 0.147619054, 0)
-poiedi.Font = Enum.Font.SourceSans
-poiedi.Text = "To editor"
-poiedi.TextColor3 = Color3.fromRGB(255, 255, 255)
-poiedi.TextScaled = true
-poiedi.TextSize = 14.000
-poiedi.TextWrapped = true
+    poiedi.MouseButton1Click:Connect(function()
+        editor.Text = scriptData.script
+    end)
 
-
-local UICorner_34 = Instance.new("UICorner")
-UICorner_34.Parent = poiedi
-
-poidel.Name = "poidel"
-poidel.Parent = poiscr
-poidel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-poidel.BackgroundTransparency = 1.000
-poidel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-poidel.BorderSizePixel = 0
-poidel.Position = UDim2.new(0.734756112, 0, 0.568801284, 0)
-poidel.Size = UDim2.new(0.259146333, 0, 0.147619054, 0)
-poidel.Font = Enum.Font.SourceSans
-poidel.Text = "Delete"
-poidel.TextColor3 = Color3.fromRGB(255, 255, 255)
-poidel.TextScaled = true
-poidel.TextSize = 14.000
-poidel.TextWrapped = true
-local UICorner_35 = Instance.new("UICorner")
-UICorner_35.Parent = poidel
-
-	poicopy.MouseButton1Click:Connect(function()
-	setclipboard(scriptData.script)
-	end)
-
-	poiexe.MouseButton1Click:Connect(function()
-	loadstring(scriptData.script)()
-	end)
-	
-
-	poiedi.MouseButton1Click:Connect(function()
-	editor.Text = scriptData.script
-	end)
-
-	poidel.MouseButton1Click:Connect(function()
-	scriptFrame:Destroy()
-	end)
+    poidel.MouseButton1Click:Connect(function()
+        poiscr:Destroy()
+    end)
 end
---тута здеся поиск
+
+-- Поиск и обработка результатов
 search.MouseButton1Click:Connect(function()
     local query = gamename.Text
     if query ~= "" then
         local scripts = fetchScripts(query)
         
-		for i, v in pairs(pois:GetChildren()) do
-			if v.Name == "poiscr" then
-				v:Destroy()
-			end
-		end
-		print(scripts)
-		print(scripts.result)
-        for _, script in ipairs(scripts.result.scripts) do
-            createScriptFrame(script)
+        -- Очистка предыдущих результатов
+        for _, v in pairs(pois:GetChildren()) do
+            if v.Name == "poiscr" then
+                v:Destroy()
+            end
+        end
+        
+        -- Проверка данных результата
+        if scripts and scripts.result and scripts.result.scripts then
+            print("Scripts found:", #scripts.result.scripts)
+            
+            for _, script in ipairs(scripts.result.scripts) do
+                createScriptFrame(script)
+            end
+        else
+            warn("No scripts found or incorrect response format")
         end
     else
         warn("Please enter a game name")
     end
 end)
-
-print(scripts)
-print(scripts.result)
