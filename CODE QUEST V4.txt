@@ -1418,8 +1418,10 @@ local function createScriptFrame(scriptData)
     poiscr.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     poiscr.BorderColor3 = Color3.fromRGB(0, 0, 0)
     poiscr.BorderSizePixel = 0
-    poiscr.Position = UDim2.new(0, 0, 0, 0)  -- Исправлено на 0, чтобы не было отрицательного значения
+    poiscr.Position = UDim2.new(0, 0, 0, 0)  -- Убедитесь, что позиция корректная
     poiscr.Size = UDim2.new(0, 656, 0, 210)
+    poiscr.ZIndex = 1  -- Устанавливаем уровень слоя для правильного отображения
+
     local UICorner_30 = Instance.new("UICorner")
     UICorner_30.Parent = poiscr
 
@@ -1429,92 +1431,83 @@ local function createScriptFrame(scriptData)
     poiname.BackgroundTransparency = 1.000
     poiname.BorderColor3 = Color3.fromRGB(0, 0, 0)
     poiname.BorderSizePixel = 0
-    poiname.Position = UDim2.new(-0.012, 0, 0.87, 0)
-    poiname.Size = UDim2.new(0.20, 0, 0.12, 0)
+    poiname.Position = UDim2.new(0.02, 0, 0.1, 0)  -- Исправлено размещение
+    poiname.Size = UDim2.new(0.4, 0, 0.12, 0)
     poiname.Font = Enum.Font.SourceSans
     poiname.Text = scriptData.title or "Script name"
     poiname.TextColor3 = Color3.fromRGB(255, 255, 255)
     poiname.TextScaled = true
     poiname.TextSize = 14.000
     poiname.TextWrapped = true
+    poiname.ZIndex = 2  -- Уровень слоя
 
+    -- Кнопка Copy
     poicopy.Name = "poicopy"
     poicopy.Parent = poiscr
-    poicopy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    poicopy.BackgroundTransparency = 1.000
+    poicopy.BackgroundColor3 = Color3.fromRGB(100, 100, 100)  -- Добавлен серый фон для отладки
+    poicopy.BackgroundTransparency = 0.2
     poicopy.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    poicopy.BorderSizePixel = 0
-    poicopy.Position = UDim2.new(0.736, 0, 0.18, 0)
-    poicopy.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poicopy.BorderSizePixel = 1
+    poicopy.Position = UDim2.new(0.7, 0, 0.2, 0)  -- Исправлена позиция
+    poicopy.Size = UDim2.new(0.25, 0, 0.12, 0)
     poicopy.Font = Enum.Font.SourceSans
     poicopy.Text = "Copy"
     poicopy.TextColor3 = Color3.fromRGB(255, 255, 255)
     poicopy.TextScaled = true
     poicopy.TextSize = 14.000
     poicopy.TextWrapped = true
-    local UICorner_31 = Instance.new("UICorner")
-    UICorner_31.Parent = poicopy
+    poicopy.ZIndex = 2  -- Уровень слоя
 
+    -- Кнопка Execute
     poiexe.Name = "poiexe"
     poiexe.Parent = poiscr
-    poiexe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    poiexe.BackgroundTransparency = 1.000
+    poiexe.BackgroundColor3 = Color3.fromRGB(100, 100, 100)  -- Добавлен серый фон для отладки
+    poiexe.BackgroundTransparency = 0.2
     poiexe.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    poiexe.BorderSizePixel = 0
-    poiexe.Position = UDim2.new(0.736, 0, 0, 0)  -- Исправлено значение позиции Y
-    poiexe.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poiexe.BorderSizePixel = 1
+    poiexe.Position = UDim2.new(0.7, 0, 0.4, 0)  -- Исправлено положение по оси Y
+    poiexe.Size = UDim2.new(0.25, 0, 0.12, 0)
     poiexe.Font = Enum.Font.SourceSans
     poiexe.Text = "Execute"
     poiexe.TextColor3 = Color3.fromRGB(255, 255, 255)
     poiexe.TextScaled = true
     poiexe.TextSize = 14.000
     poiexe.TextWrapped = true
-    local UICorner_32 = Instance.new("UICorner")
-    UICorner_32.Parent = poiexe
+    poiexe.ZIndex = 2  -- Уровень слоя
 
-    baner.Name = "baner"
-    baner.Parent = poiscr
-    baner.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    baner.BackgroundTransparency = 1.000
-    baner.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    baner.BorderSizePixel = 0
-    baner.Size = UDim2.new(0.72, 0, 0.86, 0)
-    local UICorner_33 = Instance.new("UICorner")
-    UICorner_33.Parent = baner
-
+    -- Кнопка Edit (To editor)
     poiedi.Name = "poiedi"
     poiedi.Parent = poiscr
-    poiedi.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    poiedi.BackgroundTransparency = 1.000
+    poiedi.BackgroundColor3 = Color3.fromRGB(100, 100, 100)  -- Добавлен серый фон для отладки
+    poiedi.BackgroundTransparency = 0.2
     poiedi.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    poiedi.BorderSizePixel = 0
-    poiedi.Position = UDim2.new(0.736, 0, 0.37, 0)
-    poiedi.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poiedi.BorderSizePixel = 1
+    poiedi.Position = UDim2.new(0.7, 0, 0.6, 0)
+    poiedi.Size = UDim2.new(0.25, 0, 0.12, 0)
     poiedi.Font = Enum.Font.SourceSans
     poiedi.Text = "To editor"
     poiedi.TextColor3 = Color3.fromRGB(255, 255, 255)
     poiedi.TextScaled = true
     poiedi.TextSize = 14.000
     poiedi.TextWrapped = true
-    local UICorner_34 = Instance.new("UICorner")
-    UICorner_34.Parent = poiedi
+    poiedi.ZIndex = 2  -- Уровень слоя
 
+    -- Кнопка Delete
     poidel.Name = "poidel"
     poidel.Parent = poiscr
-    poidel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    poidel.BackgroundTransparency = 1.000
+    poidel.BackgroundColor3 = Color3.fromRGB(100, 100, 100)  -- Добавлен серый фон для отладки
+    poidel.BackgroundTransparency = 0.2
     poidel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    poidel.BorderSizePixel = 0
-    poidel.Position = UDim2.new(0.736, 0, 0.57, 0)
-    poidel.Size = UDim2.new(0.26, 0, 0.15, 0)
+    poidel.BorderSizePixel = 1
+    poidel.Position = UDim2.new(0.7, 0, 0.8, 0)
+    poidel.Size = UDim2.new(0.25, 0, 0.12, 0)
     poidel.Font = Enum.Font.SourceSans
     poidel.Text = "Delete"
     poidel.TextColor3 = Color3.fromRGB(255, 255, 255)
     poidel.TextScaled = true
     poidel.TextSize = 14.000
     poidel.TextWrapped = true
-    local UICorner_35 = Instance.new("UICorner")
-    UICorner_35.Parent = poidel
+    poidel.ZIndex = 2  -- Уровень слоя
 
     -- Подключение кнопок
     poicopy.MouseButton1Click:Connect(function()
