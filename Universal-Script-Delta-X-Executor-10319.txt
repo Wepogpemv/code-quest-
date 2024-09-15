@@ -361,7 +361,7 @@ G2L["38"]["Name"] = [[OffImage]];
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Minimize.OnImage
 G2L["39"] = Instance.new("StringValue", G2L["36"]);
-G2L["39"]["Value"] = [[rbxassetid://12731990314]];
+G2L["39"]["Value"] = [[rbxassetid://125787475899820]];
 G2L["39"]["Name"] = [[OnImage]];
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Minimize.LocalScript
