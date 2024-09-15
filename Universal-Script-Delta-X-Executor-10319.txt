@@ -982,7 +982,7 @@ G2L["94"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.AddScript1.ImageLabel
 G2L["95"] = Instance.new("ImageLabel", G2L["90"]);
 G2L["95"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
-G2L["95"]["Image"] = [[rbxassetid://12731182145]];
+G2L["95"]["Image"] = [[rbxassetid://125787475899820]];
 G2L["95"]["Size"] = UDim2.new(0.20393863320350647, 0, 0.7066323161125183, 0);
 G2L["95"]["BackgroundTransparency"] = 1;
 G2L["95"]["Position"] = UDim2.new(0.7205832004547119, 0, 0.14132645726203918, 0);
@@ -1042,7 +1042,7 @@ G2L["9d"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Execute.ImageLabel
 G2L["9e"] = Instance.new("ImageLabel", G2L["99"]);
 G2L["9e"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
-G2L["9e"]["Image"] = [[rbxassetid://12731759847]];
+G2L["9e"]["Image"] = [[rbxassetid://125787475899820]];
 G2L["9e"]["Size"] = UDim2.new(0.14605075120925903, 0, 0.6269142031669617, 0);
 G2L["9e"]["BackgroundTransparency"] = 1;
 G2L["9e"]["Position"] = UDim2.new(0.7229999899864197, 0, 0.17900000512599945, 0);
@@ -1084,7 +1084,7 @@ G2L["a4"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Clear.ImageLabel
 G2L["a5"] = Instance.new("ImageLabel", G2L["a0"]);
 G2L["a5"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
-G2L["a5"]["Image"] = [[rbxassetid://12731778060]];
+G2L["a5"]["Image"] = [[rbxassetid://125787475899820]];
 G2L["a5"]["Size"] = UDim2.new(0.1843939572572708, 0, 0.5821346640586853, 0);
 G2L["a5"]["BackgroundTransparency"] = 1;
 G2L["a5"]["Position"] = UDim2.new(0.6240000128746033, 0, 0.21400000154972076, 0);
