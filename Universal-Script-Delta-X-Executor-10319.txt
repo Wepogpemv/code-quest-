@@ -47,7 +47,7 @@ G2L["4"]["Name"] = [[SideFrame]];
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.SideFrame.Logo
 G2L["5"] = Instance.new("ImageLabel", G2L["4"]);
 G2L["5"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
-G2L["5"]["Image"] = [[rbxassetid://12730597972]];
+G2L["5"]["Image"] = [[rbxassetid://125787475899820]];
 G2L["5"]["Size"] = UDim2.new(1.0185703039169312, 0, 0.3629874587059021, 0);
 G2L["5"]["Name"] = [[Logo]];
 G2L["5"]["BackgroundTransparency"] = 1;
