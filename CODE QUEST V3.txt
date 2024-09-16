@@ -1129,7 +1129,7 @@ UpdateScriptList()
 return
 	end
 local d = game:HttpGet("https://github.com/Wepogpemv/code-quest-/blob/main/key%20system.txt")
-if string.find(d, "true") then
+if d == "true" then
 print("keyless")
 Gui1oo:Destroy()
 frrame:Destroy()
