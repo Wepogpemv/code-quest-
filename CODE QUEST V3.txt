@@ -1122,6 +1122,7 @@ UpdateScriptList()
 	end)
 
 	if player.Name == "proplayeronehun" then
+		print("You ")
 		Gui1oo:Destroy()
 		frrame:Destroy()
 		start()
@@ -1132,6 +1133,7 @@ local d = game:HttpGet("https://github.com/Wepogpemv/code-quest-/blob/main/key%2
 	local a = game:HttpGet("https://api.keyrblx.com/api/key/me?name=AlysseAndroid&hwid=" .. hwid)
 	local data = HttpService:JSONDecode(a)
 	if data.finish == true then
+		print("already finished key system")
 		Gui1oo:Destroy()
 		frrame:Destroy()
 		start()
@@ -1144,6 +1146,7 @@ local d = game:HttpGet("https://github.com/Wepogpemv/code-quest-/blob/main/key%2
 	local a = game:HttpGet("https://api.keyrblx.com/api/key/me?name=AlysseAndroid&hwid=" .. hwid)
 	local data = HttpService:JSONDecode(a)
 	if data.finish == true then
+		print("You finish key system")
 		keyInput.Text = "Correct key"
 		wait(1)
 		Gui1oo:Destroy()
