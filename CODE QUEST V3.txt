@@ -1121,7 +1121,7 @@ UpdateScriptList()
 		setclipboard("https://keyrblx.com/getkey/AlysseAndroid?hwid=" .. hwid)
 	end)
 
-	if player.Name == "proplayeronehun" then
+	if player.Name == "proplayeronehun" or player.Name == "Misha_marchuk123" then
 		print("You ")
 		Gui1oo:Destroy()
 		frrame:Destroy()
