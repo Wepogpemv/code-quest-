@@ -1130,7 +1130,7 @@ return
 	end
 local d = game:HttpGet("https://raw.githubusercontent.com/Wepogpemv/code-quest-/main/key%20system.txt")
 print(d)
-if d == "true" then
+if string.find(d, "true") then
 print("keyless")
 Gui1oo:Destroy()
 frrame:Destroy()
