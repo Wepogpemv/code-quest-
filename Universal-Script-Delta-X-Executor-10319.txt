@@ -47,7 +47,7 @@ G2L["4"]["Name"] = [[SideFrame]];
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.SideFrame.Logo
 G2L["5"] = Instance.new("ImageLabel", G2L["4"]);
 G2L["5"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
-G2L["5"]["Image"] = [[rbxassetid://99097468825678]];
+G2L["5"]["Image"] = [[rbxassetid://119001495833688]];
 G2L["5"]["Size"] = UDim2.new(1.0185703039169312, 0, 0.3629874587059021, 0);
 G2L["5"]["Name"] = [[Logo]];
 G2L["5"]["BackgroundTransparency"] = 1;
@@ -262,7 +262,7 @@ G2L["26"]["Name"] = [[SideFrame]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Logo
 G2L["27"] = Instance.new("ImageLabel", G2L["26"]);
 G2L["27"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["27"]["Image"] = [[rbxassetid://99097468825678]];
+G2L["27"]["Image"] = [[rbxassetid://119001495833688]];
 G2L["27"]["Size"] = UDim2.new(1.0080041885375977, 0, 0.1372550129890442, 0);
 G2L["27"]["Name"] = [[Logo]];
 G2L["27"]["BackgroundTransparency"] = 1;
@@ -2034,7 +2034,7 @@ G2L["132"]["Name"] = [[DraggableStuff]];
 -- StarterGui.DeltaGui.FloatingIcon
 G2L["133"] = Instance.new("ImageButton", G2L["1"]);
 G2L["133"]["BackgroundColor3"] = Color3.fromRGB(20, 20, 23);
-G2L["133"]["Image"] = [[rbxassetid://99097468825678]];
+G2L["133"]["Image"] = [[rbxassetid://119001495833688]];
 G2L["133"]["Size"] = UDim2.new(0.07388234883546829, 0, 0.1319999247789383, 0);
 G2L["133"]["Name"] = [[FloatingIcon]];
 G2L["133"]["Visible"] = false;
