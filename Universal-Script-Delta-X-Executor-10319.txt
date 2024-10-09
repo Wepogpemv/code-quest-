@@ -329,7 +329,7 @@ G2L["32"] = Instance.new("UIAspectRatioConstraint", G2L["31"]);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.MakeScript.OffImage
 G2L["33"] = Instance.new("StringValue", G2L["31"]);
-G2L["33"]["Value"] = [[rbxassetid://12730888709]];
+G2L["33"]["Value"] = [[rbxassetid://86250575801609]];
 G2L["33"]["Name"] = [[OffImage]];
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.MakeScript.OnImage
