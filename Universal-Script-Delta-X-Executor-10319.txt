@@ -398,7 +398,7 @@ G2L["3f"] = Instance.new("LocalScript", G2L["3b"]);
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Scripts
 G2L["40"] = Instance.new("ImageButton", G2L["2b"]);
 G2L["40"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["40"]["Image"] = [[rbxassetid://12731084214]];
+G2L["40"]["Image"] = [[rbxassetid://121153564973309]];
 G2L["40"]["Size"] = UDim2.new(0.5177212357521057, 0, 0.08347529172897339, 0);
 G2L["40"]["Name"] = [[Scripts]];
 G2L["40"]["Position"] = UDim2.new(0.2218806892633438, 0, 0.40612998604774475, 0);
@@ -410,7 +410,7 @@ G2L["41"] = Instance.new("UIAspectRatioConstraint", G2L["40"]);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Scripts.OffImage
 G2L["42"] = Instance.new("StringValue", G2L["40"]);
-G2L["42"]["Value"] = [[rbxassetid://12731084214]];
+G2L["42"]["Value"] = [[rbxassetid://121153564973309]];
 G2L["42"]["Name"] = [[OffImage]];
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Scripts.OnImage
