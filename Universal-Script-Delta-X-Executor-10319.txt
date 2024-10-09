@@ -46,7 +46,7 @@ G2L["4"]["Name"] = [[SideFrame]];
 
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.SideFrame.Logo
 G2L["5"] = Instance.new("ImageLabel", G2L["4"]);
-G2L["5"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["5"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["5"]["Image"] = [[rbxassetid://117511501336791]];
 G2L["5"]["Size"] = UDim2.new(1.0185703039169312, 0, 0.3629874587059021, 0);
 G2L["5"]["Name"] = [[Logo]];
@@ -112,7 +112,7 @@ G2L["e"]["AspectRatio"] = 3.0439562797546387;
 
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.Continue
 G2L["f"] = Instance.new("Frame", G2L["3"]);
-G2L["f"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["f"]["Size"] = UDim2.new(0.19932664930820465, 0, 0.1760299652814865, 0);
 G2L["f"]["Position"] = UDim2.new(0.13534526526927948, 0, 0.7490636706352234, 0);
 G2L["f"]["Name"] = [[Continue]];
@@ -121,7 +121,7 @@ G2L["f"]["Name"] = [[Continue]];
 G2L["10"] = Instance.new("TextButton", G2L["f"]);
 G2L["10"]["TextWrapped"] = true;
 G2L["10"]["TextScaled"] = true;
-G2L["10"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["10"]["TextSize"] = 14;
 G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["10"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -147,7 +147,7 @@ G2L["14"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.Continue.ImageLabel
 G2L["15"] = Instance.new("ImageLabel", G2L["f"]);
-G2L["15"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["15"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["15"]["Image"] = [[rbxassetid://125787475899820]];
 G2L["15"]["Size"] = UDim2.new(0.1541670262813568, 0, 0.5313842296600342, 0);
 G2L["15"]["BackgroundTransparency"] = 1;
@@ -155,7 +155,7 @@ G2L["15"]["Position"] = UDim2.new(0.6577792763710022, 0, 0.2479792982339859, 0);
 
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.GetKey
 G2L["16"] = Instance.new("Frame", G2L["3"]);
-G2L["16"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["16"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["16"]["Size"] = UDim2.new(0.19932664930820465, 0, 0.1760299652814865, 0);
 G2L["16"]["Position"] = UDim2.new(0.34697607159614563, 0, 0.7490636706352234, 0);
 G2L["16"]["Name"] = [[GetKey]];
@@ -164,7 +164,7 @@ G2L["16"]["Name"] = [[GetKey]];
 G2L["17"] = Instance.new("TextButton", G2L["16"]);
 G2L["17"]["TextWrapped"] = true;
 G2L["17"]["TextScaled"] = true;
-G2L["17"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["17"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["17"]["TextSize"] = 14;
 G2L["17"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["17"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -190,7 +190,7 @@ G2L["1b"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.GetKey.ImageLabel
 G2L["1c"] = Instance.new("ImageLabel", G2L["16"]);
-G2L["1c"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["1c"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["1c"]["Image"] = [[rbxassetid://12730592157]];
 G2L["1c"]["Size"] = UDim2.new(0.14388921856880188, 0, 0.4959585964679718, 0);
 G2L["1c"]["BackgroundTransparency"] = 1;
@@ -198,7 +198,7 @@ G2L["1c"]["Position"] = UDim2.new(0.6577792763710022, 0, 0.2479792982339859, 0);
 
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.JoinServer
 G2L["1d"] = Instance.new("Frame", G2L["3"]);
-G2L["1d"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["1d"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["1d"]["Size"] = UDim2.new(0.23844483494758606, 0, 0.1760299652814865, 0);
 G2L["1d"]["Position"] = UDim2.new(0.5598372220993042, 0, 0.7490636706352234, 0);
 G2L["1d"]["Name"] = [[JoinServer]];
@@ -207,7 +207,7 @@ G2L["1d"]["Name"] = [[JoinServer]];
 G2L["1e"] = Instance.new("TextButton", G2L["1d"]);
 G2L["1e"]["TextWrapped"] = true;
 G2L["1e"]["TextScaled"] = true;
-G2L["1e"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["1e"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["1e"]["TextSize"] = 14;
 G2L["1e"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["1e"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -233,7 +233,7 @@ G2L["22"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.KeySystem.MainKeyFrame.JoinServer.ImageLabel
 G2L["23"] = Instance.new("ImageLabel", G2L["1d"]);
-G2L["23"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["23"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["23"]["Image"] = [[rbxassetid://12730595164]];
 G2L["23"]["Size"] = UDim2.new(0.11047418415546417, 0, 0.4959585964679718, 0);
 G2L["23"]["BackgroundTransparency"] = 1;
@@ -488,7 +488,7 @@ G2L["4d"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.ScriptTextbox.GoBack
 G2L["4e"] = Instance.new("Frame", G2L["4c"]);
-G2L["4e"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["4e"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["4e"]["Size"] = UDim2.new(0.19932666420936584, 0, 0.0753278136253357, 0);
 G2L["4e"]["Position"] = UDim2.new(0.7811665534973145, 0, 0.8959466814994812, 0);
 G2L["4e"]["Name"] = [[GoBack]];
@@ -496,7 +496,7 @@ G2L["4e"]["Name"] = [[GoBack]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.ScriptTextbox.GoBack.TextButton
 G2L["4f"] = Instance.new("TextButton", G2L["4e"]);
 G2L["4f"]["TextWrapped"] = true;
-G2L["4f"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["4f"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["4f"]["TextSize"] = 12;
 G2L["4f"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["4f"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -518,7 +518,7 @@ G2L["52"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.ScriptTextbox.GoBack.ImageLabel
 G2L["53"] = Instance.new("ImageLabel", G2L["4e"]);
-G2L["53"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["53"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["53"]["Image"] = [[rbxassetid://12731271008]];
 G2L["53"]["Size"] = UDim2.new(0.1843939572572708, 0, 0.5821346640586853, 0);
 G2L["53"]["BackgroundTransparency"] = 1;
@@ -530,7 +530,7 @@ G2L["54"]["AspectRatio"] = 1.0000001192092896;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.ScriptTextbox.AddScript
 G2L["55"] = Instance.new("Frame", G2L["4c"]);
-G2L["55"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["55"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["55"]["Size"] = UDim2.new(0.25788477063179016, 0, 0.0753278136253357, 0);
 G2L["55"]["Position"] = UDim2.new(0.48794427514076233, 0, 0.8959466814994812, 0);
 G2L["55"]["Name"] = [[AddScript]];
@@ -538,7 +538,7 @@ G2L["55"]["Name"] = [[AddScript]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.ScriptTextbox.AddScript.TextButton
 G2L["56"] = Instance.new("TextButton", G2L["55"]);
 G2L["56"]["TextWrapped"] = true;
-G2L["56"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["56"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["56"]["TextSize"] = 12;
 G2L["56"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["56"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -560,7 +560,7 @@ G2L["59"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.ScriptTextbox.AddScript.ImageLabel
 G2L["5a"] = Instance.new("ImageLabel", G2L["55"]);
-G2L["5a"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["5a"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["5a"]["Image"] = [[rbxassetid://12731182145]];
 G2L["5a"]["Size"] = UDim2.new(0.16445015370845795, 0, 0.6716938018798828, 0);
 G2L["5a"]["BackgroundTransparency"] = 1;
@@ -879,7 +879,7 @@ G2L["84"]["CornerRadius"] = UDim.new(0.38999998569488525, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.Scripts.LIST.Execute
 G2L["85"] = Instance.new("Frame", G2L["80"]);
-G2L["85"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["85"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["85"]["Size"] = UDim2.new(0.20491595566272736, 0, 0.7415456175804138, 0);
 G2L["85"]["Position"] = UDim2.new(0.5597181916236877, 0, 0.1205231249332428, 0);
 G2L["85"]["Name"] = [[Execute]];
@@ -887,7 +887,7 @@ G2L["85"]["Name"] = [[Execute]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.Scripts.LIST.Execute.TextButton
 G2L["86"] = Instance.new("TextButton", G2L["85"]);
 G2L["86"]["TextWrapped"] = true;
-G2L["86"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["86"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["86"]["TextSize"] = 12;
 G2L["86"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["86"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -905,7 +905,7 @@ G2L["88"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.Scripts.LIST.Execute.ImageLabel
 G2L["89"] = Instance.new("ImageLabel", G2L["85"]);
-G2L["89"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["89"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["89"]["Image"] = [[rbxassetid://12730588268]];
 G2L["89"]["Size"] = UDim2.new(0.20393863320350647, 0, 0.7066323161125183, 0);
 G2L["89"]["BackgroundTransparency"] = 1;
@@ -913,7 +913,7 @@ G2L["89"]["Position"] = UDim2.new(0.7205832004547119, 0, 0.14132645726203918, 0)
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.Scripts.LIST.Delete
 G2L["8a"] = Instance.new("Frame", G2L["80"]);
-G2L["8a"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["8a"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["8a"]["Size"] = UDim2.new(0.20491595566272736, 0, 0.7415456175804138, 0);
 G2L["8a"]["Position"] = UDim2.new(0.7835553884506226, 0, 0.1205231249332428, 0);
 G2L["8a"]["Name"] = [[Delete]];
@@ -921,7 +921,7 @@ G2L["8a"]["Name"] = [[Delete]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.Scripts.LIST.Delete.TextButton
 G2L["8b"] = Instance.new("TextButton", G2L["8a"]);
 G2L["8b"]["TextWrapped"] = true;
-G2L["8b"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["8b"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["8b"]["TextSize"] = 12;
 G2L["8b"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["8b"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -939,7 +939,7 @@ G2L["8d"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.Scripts.LIST.Delete.ImageLabel
 G2L["8e"] = Instance.new("ImageLabel", G2L["8a"]);
-G2L["8e"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["8e"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["8e"]["Image"] = [[rbxassetid://12731675545]];
 G2L["8e"]["Size"] = UDim2.new(0.20393863320350647, 0, 0.7066323161125183, 0);
 G2L["8e"]["BackgroundTransparency"] = 1;
@@ -951,7 +951,7 @@ G2L["8f"]["AspectRatio"] = 14.29936695098877;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.AddScript1
 G2L["90"] = Instance.new("Frame", G2L["47"]);
-G2L["90"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["90"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["90"]["Size"] = UDim2.new(0.19932666420936584, 0, 0.06368814408779144, 0);
 G2L["90"]["Position"] = UDim2.new(0.7670302391052246, 0, 0.017075123265385628, 0);
 G2L["90"]["Name"] = [[AddScript1]];
@@ -959,7 +959,7 @@ G2L["90"]["Name"] = [[AddScript1]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.AddScript1.TextButton
 G2L["91"] = Instance.new("TextButton", G2L["90"]);
 G2L["91"]["TextWrapped"] = true;
-G2L["91"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["91"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["91"]["TextSize"] = 12;
 G2L["91"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["91"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -981,7 +981,7 @@ G2L["94"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.MakeScript.AddScript1.ImageLabel
 G2L["95"] = Instance.new("ImageLabel", G2L["90"]);
-G2L["95"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["95"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["95"]["Image"] = [[rbxassetid://12731182145]];
 G2L["95"]["Size"] = UDim2.new(0.20393863320350647, 0, 0.7066323161125183, 0);
 G2L["95"]["BackgroundTransparency"] = 1;
@@ -1011,7 +1011,7 @@ G2L["98"]["CornerRadius"] = UDim.new(0.03999999910593033, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Execute
 G2L["99"] = Instance.new("Frame", G2L["97"]);
-G2L["99"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["99"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["99"]["Size"] = UDim2.new(0.2710147798061371, 0, 0.0753278136253357, 0);
 G2L["99"]["Position"] = UDim2.new(0.032752323895692825, 0, 0.8925735354423523, 0);
 G2L["99"]["Name"] = [[Execute]];
@@ -1019,7 +1019,7 @@ G2L["99"]["Name"] = [[Execute]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Execute.TextButton
 G2L["9a"] = Instance.new("TextButton", G2L["99"]);
 G2L["9a"]["TextWrapped"] = true;
-G2L["9a"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["9a"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["9a"]["TextSize"] = 12;
 G2L["9a"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["9a"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1041,7 +1041,7 @@ G2L["9d"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Execute.ImageLabel
 G2L["9e"] = Instance.new("ImageLabel", G2L["99"]);
-G2L["9e"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["9e"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["9e"]["Image"] = [[rbxassetid://12731759847]];
 G2L["9e"]["Size"] = UDim2.new(0.14605075120925903, 0, 0.6269142031669617, 0);
 G2L["9e"]["BackgroundTransparency"] = 1;
@@ -1053,7 +1053,7 @@ G2L["9f"]["AspectRatio"] = 1.0000001192092896;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Clear
 G2L["a0"] = Instance.new("Frame", G2L["97"]);
-G2L["a0"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["a0"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["a0"]["Size"] = UDim2.new(0.19932666420936584, 0, 0.0753278136253357, 0);
 G2L["a0"]["Position"] = UDim2.new(0.32880187034606934, 0, 0.8925735354423523, 0);
 G2L["a0"]["Name"] = [[Clear]];
@@ -1061,7 +1061,7 @@ G2L["a0"]["Name"] = [[Clear]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Clear.TextButton
 G2L["a1"] = Instance.new("TextButton", G2L["a0"]);
 G2L["a1"]["TextWrapped"] = true;
-G2L["a1"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["a1"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["a1"]["TextSize"] = 12;
 G2L["a1"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["a1"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1083,7 +1083,7 @@ G2L["a4"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.Clear.ImageLabel
 G2L["a5"] = Instance.new("ImageLabel", G2L["a0"]);
-G2L["a5"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["a5"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["a5"]["Image"] = [[rbxassetid://12731778060]];
 G2L["a5"]["Size"] = UDim2.new(0.1843939572572708, 0, 0.5821346640586853, 0);
 G2L["a5"]["BackgroundTransparency"] = 1;
@@ -1095,7 +1095,7 @@ G2L["a6"]["AspectRatio"] = 1.0000001192092896;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.ExecuteClipboard
 G2L["a7"] = Instance.new("Frame", G2L["97"]);
-G2L["a7"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["a7"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["a7"]["Size"] = UDim2.new(0.3159777522087097, 0, 0.0753278136253357, 0);
 G2L["a7"]["Position"] = UDim2.new(0.5501444339752197, 0, 0.8892003893852234, 0);
 G2L["a7"]["Name"] = [[ExecuteClipboard]];
@@ -1103,7 +1103,7 @@ G2L["a7"]["Name"] = [[ExecuteClipboard]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.ExecuteClipboard.TextButton
 G2L["a8"] = Instance.new("TextButton", G2L["a7"]);
 G2L["a8"]["TextWrapped"] = true;
-G2L["a8"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["a8"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["a8"]["TextSize"] = 12;
 G2L["a8"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["a8"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1125,7 +1125,7 @@ G2L["ab"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Home.ScriptTextbox.ExecuteClipboard.ImageLabel
 G2L["ac"] = Instance.new("ImageLabel", G2L["a7"]);
-G2L["ac"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["ac"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["ac"]["Image"] = [[rbxassetid://12731907784]];
 G2L["ac"]["Size"] = UDim2.new(0.11632032692432404, 0, 0.5821346640586853, 0);
 G2L["ac"]["BackgroundTransparency"] = 1;
@@ -1473,7 +1473,7 @@ G2L["da"]["Position"] = UDim2.new(0.5858038067817688, 0, 0.8526315689086914, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Execute
 G2L["db"] = Instance.new("Frame", G2L["d5"]);
-G2L["db"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["db"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["db"]["Size"] = UDim2.new(0.18748296797275543, 0, 0.09933300316333771, 0);
 G2L["db"]["Position"] = UDim2.new(0.7772064805030823, 0, 0.0343393050134182, 0);
 G2L["db"]["Name"] = [[Execute]];
@@ -1481,7 +1481,7 @@ G2L["db"]["Name"] = [[Execute]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Execute.TextButton
 G2L["dc"] = Instance.new("TextButton", G2L["db"]);
 G2L["dc"]["TextWrapped"] = true;
-G2L["dc"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["dc"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["dc"]["TextSize"] = 12;
 G2L["dc"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["dc"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1499,7 +1499,7 @@ G2L["de"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Execute.ImageLabel
 G2L["df"] = Instance.new("ImageLabel", G2L["db"]);
-G2L["df"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["df"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["df"]["Image"] = [[rbxassetid://12730588268]];
 G2L["df"]["Size"] = UDim2.new(0.18111810088157654, 0, 0.64662104845047, 0);
 G2L["df"]["BackgroundTransparency"] = 1;
@@ -1511,7 +1511,7 @@ G2L["e0"]["AspectRatio"] = 3.570162534713745;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Save
 G2L["e1"] = Instance.new("Frame", G2L["d5"]);
-G2L["e1"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["e1"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["e1"]["Size"] = UDim2.new(0.18748296797275543, 0, 0.09933300316333771, 0);
 G2L["e1"]["Position"] = UDim2.new(0.7772064805030823, 0, 0.1766234040260315, 0);
 G2L["e1"]["Name"] = [[Save]];
@@ -1519,7 +1519,7 @@ G2L["e1"]["Name"] = [[Save]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Save.TextButton
 G2L["e2"] = Instance.new("TextButton", G2L["e1"]);
 G2L["e2"]["TextWrapped"] = true;
-G2L["e2"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["e2"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["e2"]["TextSize"] = 12;
 G2L["e2"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["e2"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1537,7 +1537,7 @@ G2L["e4"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Save.ImageLabel
 G2L["e5"] = Instance.new("ImageLabel", G2L["e1"]);
-G2L["e5"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["e5"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["e5"]["Image"] = [[rbxassetid://12732367351]];
 G2L["e5"]["Size"] = UDim2.new(0.18111810088157654, 0, 0.64662104845047, 0);
 G2L["e5"]["BackgroundTransparency"] = 1;
@@ -1549,7 +1549,7 @@ G2L["e6"]["AspectRatio"] = 3.570162534713745;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.LoadText
 G2L["e7"] = Instance.new("Frame", G2L["d5"]);
-G2L["e7"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["e7"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["e7"]["Size"] = UDim2.new(0.18748296797275543, 0, 0.09933300316333771, 0);
 G2L["e7"]["Position"] = UDim2.new(0.7772064805030823, 0, 0.307320237159729, 0);
 G2L["e7"]["Name"] = [[LoadText]];
@@ -1557,7 +1557,7 @@ G2L["e7"]["Name"] = [[LoadText]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.LoadText.TextButton
 G2L["e8"] = Instance.new("TextButton", G2L["e7"]);
 G2L["e8"]["TextWrapped"] = true;
-G2L["e8"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["e8"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["e8"]["TextSize"] = 12;
 G2L["e8"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["e8"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1575,7 +1575,7 @@ G2L["ea"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.LoadText.ImageLabel
 G2L["eb"] = Instance.new("ImageLabel", G2L["e7"]);
-G2L["eb"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["eb"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["eb"]["Image"] = [[rbxassetid://12732352613]];
 G2L["eb"]["Size"] = UDim2.new(0.18111810088157654, 0, 0.64662104845047, 0);
 G2L["eb"]["BackgroundTransparency"] = 1;
@@ -1587,7 +1587,7 @@ G2L["ec"]["AspectRatio"] = 3.570162534713745;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Copy
 G2L["ed"] = Instance.new("Frame", G2L["d5"]);
-G2L["ed"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["ed"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["ed"]["Size"] = UDim2.new(0.18748296797275543, 0, 0.09933300316333771, 0);
 G2L["ed"]["Position"] = UDim2.new(0.7772064805030823, 0, 0.449604332447052, 0);
 G2L["ed"]["Name"] = [[Copy]];
@@ -1595,7 +1595,7 @@ G2L["ed"]["Name"] = [[Copy]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Copy.TextButton
 G2L["ee"] = Instance.new("TextButton", G2L["ed"]);
 G2L["ee"]["TextWrapped"] = true;
-G2L["ee"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["ee"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["ee"]["TextSize"] = 12;
 G2L["ee"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["ee"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1613,7 +1613,7 @@ G2L["f0"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Copy.ImageLabel
 G2L["f1"] = Instance.new("ImageLabel", G2L["ed"]);
-G2L["f1"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["f1"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["f1"]["Image"] = [[rbxassetid://12732363389]];
 G2L["f1"]["Size"] = UDim2.new(0.18111810088157654, 0, 0.64662104845047, 0);
 G2L["f1"]["BackgroundTransparency"] = 1;
@@ -1625,7 +1625,7 @@ G2L["f2"]["AspectRatio"] = 3.570162534713745;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Hide
 G2L["f3"] = Instance.new("Frame", G2L["d5"]);
-G2L["f3"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["f3"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["f3"]["Size"] = UDim2.new(0.18748296797275543, 0, 0.09933300316333771, 0);
 G2L["f3"]["Position"] = UDim2.new(0.7772064805030823, 0, 0.5887711048126221, 0);
 G2L["f3"]["Name"] = [[Hide]];
@@ -1633,7 +1633,7 @@ G2L["f3"]["Name"] = [[Hide]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Hide.TextButton
 G2L["f4"] = Instance.new("TextButton", G2L["f3"]);
 G2L["f4"]["TextWrapped"] = true;
-G2L["f4"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["f4"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["f4"]["TextSize"] = 12;
 G2L["f4"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["f4"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1651,7 +1651,7 @@ G2L["f6"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts.Folder.LIST.Hide.ImageLabel
 G2L["f7"] = Instance.new("ImageLabel", G2L["f3"]);
-G2L["f7"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["f7"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["f7"]["Image"] = [[rbxassetid://12731675545]];
 G2L["f7"]["Size"] = UDim2.new(0.18111810088157654, 0, 0.64662104845047, 0);
 G2L["f7"]["BackgroundTransparency"] = 1;
@@ -1667,7 +1667,7 @@ G2L["f9"]["AspectRatio"] = 1.8915581703186035;
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Search
 G2L["fa"] = Instance.new("Frame", G2L["cc"]);
-G2L["fa"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["fa"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["fa"]["Size"] = UDim2.new(0.1818244606256485, 0, 0.05602366104722023, 0);
 G2L["fa"]["Position"] = UDim2.new(0.7872427105903625, 0, 0.05453909933567047, 0);
 G2L["fa"]["Name"] = [[Search]];
@@ -1675,7 +1675,7 @@ G2L["fa"]["Name"] = [[Search]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Search.TextButton
 G2L["fb"] = Instance.new("TextButton", G2L["fa"]);
 G2L["fb"]["TextWrapped"] = true;
-G2L["fb"]["BackgroundColor3"] = Color3.fromRGB(143, 130, 255);
+G2L["fb"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["fb"]["TextSize"] = 12;
 G2L["fb"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["fb"]["TextColor3"] = Color3.fromRGB(252, 252, 252);
@@ -1697,7 +1697,7 @@ G2L["fe"]["CornerRadius"] = UDim.new(0.4300000071525574, 0);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Search.ImageLabel
 G2L["ff"] = Instance.new("ImageLabel", G2L["fa"]);
-G2L["ff"]["BackgroundColor3"] = Color3.fromRGB(137, 126, 251);
+G2L["ff"]["BackgroundColor3"] = Color3.fromRGB(255, 0, 0);
 G2L["ff"]["Image"] = [[rbxassetid://12732045195]];
 G2L["ff"]["Size"] = UDim2.new(0.20393863320350647, 0, 0.7066323161125183, 0);
 G2L["ff"]["BackgroundTransparency"] = 1;
