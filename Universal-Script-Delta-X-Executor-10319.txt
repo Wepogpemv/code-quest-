@@ -290,7 +290,7 @@ G2L["2b"]["Name"] = [[Buttons]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Home
 G2L["2c"] = Instance.new("ImageButton", G2L["2b"]);
 G2L["2c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["2c"]["Image"] = [[rbxassetid://86250575801609]];
+G2L["2c"]["Image"] = [[rbxassetid://105799592140640]];
 G2L["2c"]["Size"] = UDim2.new(0.5177212357521057, 0, 0.08347529172897339, 0);
 G2L["2c"]["Name"] = [[Home]];
 G2L["2c"]["Position"] = UDim2.new(0.2218806892633438, 0, 0.29020607471466064, 0);
@@ -302,7 +302,7 @@ G2L["2d"] = Instance.new("UIAspectRatioConstraint", G2L["2c"]);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Home.OffImage
 G2L["2e"] = Instance.new("StringValue", G2L["2c"]);
-G2L["2e"]["Value"] = [[rbxassetid://86250575801609]];
+G2L["2e"]["Value"] = [[rbxassetid://105799592140640]];
 G2L["2e"]["Name"] = [[OffImage]];
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Home.OnImage
