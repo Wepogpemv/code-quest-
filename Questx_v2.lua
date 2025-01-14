@@ -8,7 +8,7 @@
 88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
 ]=]
-makefolder("d_android_script_dir")
+makefolder("Questxscript")
 
 if _G.is_deltaandroid_loaded then
     print("already running")
@@ -329,12 +329,12 @@ G2L["32"] = Instance.new("UIAspectRatioConstraint", G2L["31"]);
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.MakeScript.OffImage
 G2L["33"] = Instance.new("StringValue", G2L["31"]);
-G2L["33"]["Value"] = [[rbxassetid://12730888709]];
+G2L["33"]["Value"] = [[rbxassetid://105992213443707]];
 G2L["33"]["Name"] = [[OffImage]];
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.MakeScript.OnImage
 G2L["34"] = Instance.new("StringValue", G2L["31"]);
-G2L["34"]["Value"] = [[rbxassetid://12730930487]];
+G2L["34"]["Value"] = [[rbxassetid://128273707058059]];
 G2L["34"]["Name"] = [[OnImage]];
 
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.MakeScript.LocalScript
@@ -4719,8 +4719,8 @@ task.spawn(C_51);
 
 	local function AddScript(name, source, loading)
         if(loading == false) then
-            makefolder("d_android_script_dir")
-            writefile("d_android_script_dir/" .. name, source)
+            makefolder("Questxscript")
+            writefile("Questxscript" .. name, source)
         end
 		local parent = script.Parent.Parent.Parent.Parent.Scripts.ScriptFrame
 		local hub = script.Parent.Parent.Parent.Parent.Scripts.LIST
@@ -4737,18 +4737,18 @@ task.spawn(C_51);
 			loadstring(source)()
 			game.StarterGui:SetCore("SendNotification", 
             {
-            Title = "Delta Android";
+            Title = "Quest X Android";
             Text = "Successfully executed the script!";
             Duration = 1;
             })
 		end)
 		delbutton.MouseButton1Click:Connect(function()
-            delfile("d_android_script_dir/"..name)
+            delfile("Questxscript/"..name)
 			newhub:Destroy()
 		end)
 	end
 
-    for _, file in ipairs(listfiles("d_android_script_dir")) do
+    for _, file in ipairs(listfiles("Questxscript")) do
         AddScript(file:sub(22, #file), readfile(file), true)
     end
 
@@ -4816,7 +4816,7 @@ local function C_9c()
 		loadstring(script.Parent.Parent.Parent.TextboxBar.Editor.Scroll.Source.Text)()
 		game.StarterGui:SetCore("SendNotification", 
             {
-            Title = "Delta Android";
+            Title = "Quest X Android";
             Text = "Successfully executed the script!";
             Duration = 1;
             })
@@ -4840,7 +4840,7 @@ local function C_aa()
 		loadstring(getclipboard())()
 		game.StarterGui:SetCore("SendNotification", 
             {
-            Title = "Delta Android";
+            Title = "Quest X Android";
             Text = "Successfully executed from clipboard!";
             Duration = 1;
             })
@@ -4905,7 +4905,7 @@ local function C_fd()
 			loadstring(source)()
 			game.StarterGui:SetCore("SendNotification", 
             {
-            Title = "Delta Android";
+            Title = "Quest X Android";
             Text = "Successfully executed the script!";
             Duration = 1;
             })
@@ -4914,7 +4914,7 @@ local function C_fd()
 			setclipboard(source)
             game.StarterGui:SetCore("SendNotification", 
             {
-            Title = "Delta Android";
+            Title = "Quest X Android";
             Text = "Successfully copied the script!";
             Duration = 5;
             })
@@ -4923,7 +4923,7 @@ local function C_fd()
             AddScript(scriptname, source, false)
             game.StarterGui:SetCore("SendNotification", 
             {
-            Title = "Delta Android";
+            Title = "Quest X Android";
             Text = "Sucessfully saved the script in the script hub";
             Duration = 5;
             })
@@ -4932,7 +4932,7 @@ local function C_fd()
 		loadtext.MouseButton1Click:Connect(function()
 			game.StarterGui:SetCore("SendNotification", 
             {
-            Title = "Delta Android";
+            Title = "Quest X Android";
             Text = "Work In Progress / Coming Soon";
             Duration = 5;
             })
@@ -4982,10 +4982,10 @@ local function C_110()
 	local script = G2L["110"];
 	local btn = script.Parent
 	btn.MouseButton1Click:Connect(function()
-		setclipboard("discord.gg/deltaex")
+		setclipboard("discord.gg/Sqt5j269mK")
         game.StarterGui:SetCore("SendNotification", 
     {
-    Title = "Delta Android";
+    Title = "Quest  X Android";
     Text = "Copied the discord invite to you clipboard";
     Duration = 5;
     })
@@ -5000,7 +5000,7 @@ local function C_115()
 	btn.MouseButton1Click:Connect(function()
 		game.StarterGui:SetCore("SendNotification", 
     {
-    Title = "Delta Android";
+    Title = "Quest X Android";
     Text = "Made by ShowerheadFD & Lxnny/DeltaTeam";
     Duration = 5;
     })
