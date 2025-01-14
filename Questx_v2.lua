@@ -290,7 +290,7 @@ G2L["2b"]["Name"] = [[Buttons]];
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Home
 G2L["2c"] = Instance.new("ImageButton", G2L["2b"]);
 G2L["2c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["2c"]["Image"] = [[rbxassetid://105799592140640]];
+G2L["2c"]["Image"] = [[rbxassetid://107721854868390]];
 G2L["2c"]["Size"] = UDim2.new(0.5177212357521057, 0, 0.08347529172897339, 0);
 G2L["2c"]["Name"] = [[Home]];
 G2L["2c"]["Position"] = UDim2.new(0.2218806892633438, 0, 0.29020607471466064, 0);
@@ -317,7 +317,7 @@ G2L["30"] = Instance.new("LocalScript", G2L["2c"]);
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.MakeScript
 G2L["31"] = Instance.new("ImageButton", G2L["2b"]);
 G2L["31"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["31"]["Image"] = [[rbxassetid://12730930487]];
+G2L["31"]["Image"] = [[rbxassetid://93527542993641]];
 G2L["31"]["Size"] = UDim2.new(0.5177212357521057, 0, 0.08347529172897339, 0);
 G2L["31"]["Name"] = [[MakeScript]];
 G2L["31"]["Position"] = UDim2.new(0.2424367517232895, 0, 0.186909481883049, 0);
@@ -398,7 +398,7 @@ G2L["3f"] = Instance.new("LocalScript", G2L["3b"]);
 -- StarterGui.DeltaGui.MainUi.MainFrame.SideFrame.Buttons.Scripts
 G2L["40"] = Instance.new("ImageButton", G2L["2b"]);
 G2L["40"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["40"]["Image"] = [[rbxassetid://113215321560879]];
+G2L["40"]["Image"] = [[rbxassetid://107823259747027]];
 G2L["40"]["Size"] = UDim2.new(0.5177212357521057, 0, 0.08347529172897339, 0);
 G2L["40"]["Name"] = [[Scripts]];
 G2L["40"]["Position"] = UDim2.new(0.2218806892633438, -1, 0.40612998604774475, 0);
