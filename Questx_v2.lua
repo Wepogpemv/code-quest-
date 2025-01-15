@@ -3350,14 +3350,21 @@ G2L_MODULES[G2L["b0"]] = {
 			highlightBox.TextStrokeTransparency = 0.1
 			highlightBox.Text = ""
 			highlightBox.Parent = textbox
-
+            function Fixcxz(textbox)
+                if textbox.Text:sub(1, 1) ~= "\n" then
+                    textbox.Text = "\n" .. textbox.Text
+                end
+    
+                textbox.Position = UDim2.new(0, 0,0, -16)
+                textbox.Size = UDim2.new(1, 4,1, textbox.TextSize)
+            end
 			editorObj:SetTheme("default")
-			textFixer.Fix(highlightBox)
+			Fixcxz(highlightBox)
 			suggestions:Start(newEditor)
-
+            
 			textbox:GetPropertyChangedSignal("Text"):Connect(function()
 				syntax.Highlight(highlightBox, textbox.Text)
-
+                highlightBox.Position = UDim2.new(0, 0,0, -16)
 				-- Fix tabs
 				textbox.Text = textbox.Text:gsub("\t", "    ")
 				--textbox.CursorPosition += 4
