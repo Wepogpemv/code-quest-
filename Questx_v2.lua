@@ -2108,13 +2108,23 @@ G2L_MODULES[G2L["60"]] = {
 			highlightBox.TextStrokeTransparency = 0.1
 			highlightBox.Text = ""
 			highlightBox.Parent = textbox
-
+            function Fixcxz(textbox)
+                if textbox.Text:sub(1, 1) ~= "\n" then
+                    textbox.Text = "\n" .. textbox.Text
+                end
+    
+                textbox.Position = UDim2.new(0, 0,0, -16)
+                textbox.Size = UDim2.new(1, 4,1, textbox.TextSize)
+            end
+            
+            
 			editorObj:SetTheme("default")
-			textFixer.Fix(highlightBox)
+			Fixcxz(highlightBox)
 			suggestions:Start(newEditor)
 
 			textbox:GetPropertyChangedSignal("Text"):Connect(function()
 				syntax.Highlight(highlightBox, textbox.Text)
+                highlightBox.Position = UDim2.new(0, 0,0, -16)
 
 				-- Fix tabs
 				textbox.Text = textbox.Text:gsub("\t", "    ")
@@ -4725,9 +4735,9 @@ task.spawn(C_51);
 	local btn = script.Parent
 
 	local function AddScript(name, source, loading)
+        if not isfolder("Questxscript") then makefolder("Questxscript") end
         if(loading == false) then
-            makefolder("Questxscript")
-            writefile("Questxscript" .. name, source)
+            writefile("Questxscript/" .. name, source)
         end
 		local parent = script.Parent.Parent.Parent.Parent.Scripts.ScriptFrame
 		local hub = script.Parent.Parent.Parent.Parent.Scripts.LIST
