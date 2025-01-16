@@ -4766,7 +4766,7 @@ task.spawn(C_51);
 	end
 
     for _, file in ipairs(listfiles("Questxscript")) do
-        AddScript(file:sub(22, #file), readfile(file), true)
+        AddScript(file:sub(14, #file), readfile(file), true)
     end
 
 
