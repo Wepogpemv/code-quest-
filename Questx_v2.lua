@@ -5010,8 +5010,8 @@ local function onValidKey()
             end
 
             
-            local url = "https://scriptblox.com/api/script/search?filters=free&q=" .. G2L["ce"].Text
-            local response = game:HttpGetAsync(url)
+            local url = "https://scriptblox.com/api/script/search?filters=free&q=" .. http:UrlEncode(tostring(G2L["ce"].Text))
+            local response = game:HttpGet(url)
             local decoded = http:JSONDecode(response)
             for _, script in pairs(decoded.result.scripts) do
                 if(script.isUniversal == true) then
@@ -5545,13 +5545,19 @@ local function playSuccessAnimation()
         wait(0.02)
     end
     
-    local elementsToFade = {titleLabel, subtitleLabel, keyInput, verifyButton, statusLabel}
+    local elementsToFade = {titleLabel, subtitleLabel, keyInput, verifyButton, statusLabel, getKeyButton, imageButton}
     for _, element in ipairs(elementsToFade) do
         local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-        local tween = game:GetService("TweenService"):Create(element, tweenInfo, {
-            TextTransparency = 1,
-            BackgroundTransparency = 1
-        })
+		local tweenProperties = {
+			Transparency = 1,
+			BackgroundTransparency = 1
+	
+		}
+		if element:IsA("TextLabel") or element:IsA("TextButton") then
+			element.Text = ""
+			tweenProperties.TextTransparency = 1
+		end
+		local tween = game:GetService("TweenService"):Create(element, tweenInfo, tweenProperties)
         tween:Play()
     end
     
@@ -5583,7 +5589,9 @@ verifyButton.MouseButton1Click:Connect(function()
             statusLabel.Text = "Key verified! ✅"
             statusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
         end
-        
+        keyInput.Text = ""
+		keyInput.PlaceholderText = ""
+		imageButton:Destroy()
         wait(0.5)
         playSuccessAnimation()
         onValidKey()
@@ -5607,4 +5615,3 @@ game:GetService("RunService").RenderStepped:Connect(function()
     frame.Size = UDim2.new(0, viewportSize.X * 2, 0, viewportSize.Y * 2)
     frame.Position = UDim2.new(0.5, -viewportSize.X, 0.5, -viewportSize.Y)
 end)
-
