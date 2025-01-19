@@ -5427,6 +5427,7 @@ keyInput.Transparency = 1
 keyInput.Size = UDim2.new(1, 0, 0.15, 0)
 keyInput.Position = UDim2.new(0, 0, 0.35, 0)
 keyInput.BorderSizePixel = 1
+keyInput.Text = "Enter your key here"
 keyInput.BorderColor3 = Color3.fromRGB(50, 50, 50)
 keyInput.Parent = centerFrame
 local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
