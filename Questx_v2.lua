@@ -1439,7 +1439,7 @@ local function onValidKey()
     -- StarterGui.DeltaGui.MainUi.MainFrame.Tabs.Scripts.Scripts
     G2L["d1"] = Instance.new("ScrollingFrame", G2L["cc"]);
     G2L["d1"]["Active"] = true;
-    G2L["d1"]["CanvasSize"] = UDim2.new(0, 0, 10, 0);
+    G2L["d1"]["CanvasSize"] = UDim2.new(0, 0, 20, 0);
     G2L["d1"]["BackgroundColor3"] = Color3.fromRGB(20, 20, 23);
     G2L["d1"]["BackgroundTransparency"] = 1;
     G2L["d1"]["Size"] = UDim2.new(0.9701896905899048, 0, 0.8328530192375183, 0);
@@ -5011,13 +5011,26 @@ local function onValidKey()
 
             
             local url = "https://scriptblox.com/api/script/search?filters=free&q=" .. http:UrlEncode(tostring(G2L["ce"].Text))
+            local url2 = "https://rscripts.net/api/v2/scripts?page=1&q=" .. http:UrlEncode(tostring(G2L["ce"].Text))
             local response = game:HttpGet(url)
             local decoded = http:JSONDecode(response)
+            local response2 = game:HttpGet(url2)
+            local decoded2 = http:JSONDecode(response2)
             for _, script in pairs(decoded.result.scripts) do
                 if(script.isUniversal == true) then
                     AddTab("rbxassetid://120348544579863", "??", script.title, script.script)
                 else
                     AddTab("https://assetgame.roblox.com/Game/Tools/ThumbnailAsset.ashx?aid="..script.game.gameId.."&fmt=png&wd=420&ht=420", "??", script.title, script.script)
+                end
+                
+            end
+            for _, script in pairs(decoded2.scripts) do
+                if not script.game.placeId then
+                    AddTab("rbxassetid://120348544579863", "??", script.title, "game:HttpGet('"..script.script.."')")
+                else
+                    print(script.title)
+                    AddTab("https://assetgame.roblox.com/Game/Tools/ThumbnailAsset.ashx?aid="..script.game.placeId.."&fmt=png&wd=420&ht=420", "??", script.title, "game:HttpGet('"..script.rawScript.."')")
+
                 end
                 
             end
