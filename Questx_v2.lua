@@ -5228,11 +5228,13 @@ local function onValidKey()
     end
 
     end
-
+	setreadonly(dtc, false);
+	dtc.pushautoexec()
+	setreadonly(dtc, true);
+	getgenv().dtc = nil
 
 
     return G2L["1"], require;
-
 end
 
 local keyles = game:HttpGet("https://raw.githubusercontent.com/Wepogpemv/code-quest-/refs/heads/main/key%20system.txt")
