@@ -5228,11 +5228,9 @@ local function onValidKey()
     end
 
     end
-	setreadonly(dtc, false);
-	dtc.pushautoexec()
-	setreadonly(dtc, true);
-	getgenv().dtc = nil
-
+	setreadonly(client, false);
+	client.enableautoexec()
+	setreadonly(client, true);
 
     return G2L["1"], require;
 end
