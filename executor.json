@@ -1,6 +1,6 @@
 {
   "moduleName": "QuestX",
   "rbxhttp": false,
-  "script": "dtc.schedule(game:HttpGet('https://raw.githubusercontent.com/Wepogpemv/code-quest-/refs/heads/main/Questx_v2.lua'))",
+  "script": "dtc.schedule(game:HttpGet('https://raw.githubusercontent.com/Wepogpemv/code-quest-/refs/heads/main/Questx_v2_old.lua'))",
   "versionName": "1.0.0"
 }
