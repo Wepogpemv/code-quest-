@@ -1,0 +1,1410 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
+
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+local ESPSettings = {
+    Enabled = true,
+    TeamCheck = false,
+    ShowNames = true,
+    ShowDistance = true,
+    ShowHealth = true,
+    ShowBoxes = true,
+    ShowTracers = true,
+    BoxesTransparency = 0.7,
+    BoxesThickness = 1,
+    BoxesColor = Color3.fromRGB(255, 255, 255),
+    SkeletonEnabled = true,
+    SkeletonColor = Color3.fromRGB(0, 255, 0),
+    SkeletonTransparency = 0.7,
+    SkeletonThickness = 2,
+    HighlightEnabled = true,
+    HighlightColor = Color3.fromRGB(0, 170, 255),
+    HighlightTransparency = 0.5,
+    TracerColor = Color3.fromRGB(255, 255, 255),
+    TracerThickness = 1,
+    TracerTransparency = 0.7,
+    TracerFrom = "Bottom",
+    RainbowEffect = false,
+    PulsatingEffect = false,
+    PulsateSpeed = 1,
+    TextColor = Color3.fromRGB(255, 255, 255),
+    TextOutlineColor = Color3.fromRGB(0, 0, 0),
+    TextSize = 14,
+    MaxDistance = 1000,
+    RefreshRate = 10,
+}
+
+local ESPObjects = {}
+local Skeletons = {}
+local Highlights = {}
+
+local ESPGui = Instance.new("ScreenGui")
+ESPGui.Name = "NeonESPGui"
+ESPGui.ResetOnSpawn = false
+ESPGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local success, result = pcall(function()
+    ESPGui.Parent = CoreGui
+end)
+
+if not success then
+    ESPGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+end
+
+local function CreateLine()
+    local line = Drawing.new("Line")
+    line.Visible = false
+    line.Thickness = 1
+    line.Color = Color3.new(1, 1, 1)
+    line.Transparency = 1
+    return line
+end
+
+local function CreateText()
+    local text = Drawing.new("Text")
+    text.Visible = false
+    text.Center = true
+    text.Outline = true
+    text.Font = 2
+    text.Size = ESPSettings.TextSize
+    text.Color = ESPSettings.TextColor
+    text.OutlineColor = ESPSettings.TextOutlineColor
+    return text
+end
+
+local function CreateSquare()
+    local square = Drawing.new("Square")
+    square.Visible = false
+    square.Thickness = ESPSettings.BoxesThickness
+    square.Color = ESPSettings.BoxesColor
+    square.Transparency = ESPSettings.BoxesTransparency
+    square.Filled = false
+    return square
+end
+
+local function RemoveESP(player)
+    if ESPObjects[player] then
+        for _, object in pairs(ESPObjects[player]) do
+            pcall(function() object:Remove() end)
+        end
+        ESPObjects[player] = nil
+    end
+    
+    if Skeletons[player] then
+        for _, line in pairs(Skeletons[player]) do
+            pcall(function() line:Remove() end)
+        end
+        Skeletons[player] = nil
+    end
+    
+    if Highlights[player] then
+        pcall(function() Highlights[player]:Destroy() end)
+        Highlights[player] = nil
+    end
+end
+
+local function IsTeammate(player)
+    if not ESPSettings.TeamCheck then return false end
+    return player.Team == LocalPlayer.Team
+end
+
+local function GetColor(baseColor)
+    local color = baseColor
+    
+    if ESPSettings.RainbowEffect then
+        color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+    end
+    
+    if ESPSettings.PulsatingEffect then
+        local alpha = (math.sin(tick() * ESPSettings.PulsateSpeed * 2) + 1) / 2
+        color = color:Lerp(Color3.new(1, 1, 1), alpha * 0.2)
+    end
+    
+    return color
+end
+
+local function CreateESP(player)
+    ESPObjects[player] = {
+        Box = CreateSquare(),
+        Name = CreateText(),
+        Distance = CreateText(),
+        Health = CreateText(),
+        Tracer = CreateLine()
+    }
+    
+    Skeletons[player] = {}
+    
+    if ESPSettings.HighlightEnabled then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "ESPHighlight"
+        highlight.FillColor = ESPSettings.HighlightColor
+        highlight.OutlineColor = ESPSettings.HighlightColor
+        highlight.FillTransparency = ESPSettings.HighlightTransparency
+        highlight.OutlineTransparency = ESPSettings.HighlightTransparency
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        Highlights[player] = highlight
+    end
+end
+
+local function SetupSkeleton(player, character, humanoid)
+    if not Skeletons[player] then
+        Skeletons[player] = {}
+    end
+    
+    for _, line in pairs(Skeletons[player]) do
+        line.Visible = false
+    end
+    
+    local joints = {}
+    local connections = {}
+    
+    if humanoid.RigType == Enum.HumanoidRigType.R15 then
+        joints = {
+            ["Head"] = character:FindFirstChild("Head"),
+            ["UpperTorso"] = character:FindFirstChild("UpperTorso"),
+            ["LowerTorso"] = character:FindFirstChild("LowerTorso"),
+            ["LeftUpperArm"] = character:FindFirstChild("LeftUpperArm"),
+            ["LeftLowerArm"] = character:FindFirstChild("LeftLowerArm"),
+            ["LeftHand"] = character:FindFirstChild("LeftHand"),
+            ["RightUpperArm"] = character:FindFirstChild("RightUpperArm"),
+            ["RightLowerArm"] = character:FindFirstChild("RightLowerArm"),
+            ["RightHand"] = character:FindFirstChild("RightHand"),
+            ["LeftUpperLeg"] = character:FindFirstChild("LeftUpperLeg"),
+            ["LeftLowerLeg"] = character:FindFirstChild("LeftLowerLeg"),
+            ["LeftFoot"] = character:FindFirstChild("LeftFoot"),
+            ["RightUpperLeg"] = character:FindFirstChild("RightUpperLeg"),
+            ["RightLowerLeg"] = character:FindFirstChild("RightLowerLeg"),
+            ["RightFoot"] = character:FindFirstChild("RightFoot"),
+        }
+        
+        connections = {
+            { "Head", "UpperTorso" },
+            { "UpperTorso", "LowerTorso" },
+            { "LowerTorso", "LeftUpperLeg" },
+            { "LeftUpperLeg", "LeftLowerLeg" },
+            { "LeftLowerLeg", "LeftFoot" },
+            { "LowerTorso", "RightUpperLeg" },
+            { "RightUpperLeg", "RightLowerLeg" },
+            { "RightLowerLeg", "RightFoot" },
+            { "UpperTorso", "LeftUpperArm" },
+            { "LeftUpperArm", "LeftLowerArm" },
+            { "LeftLowerArm", "LeftHand" },
+            { "UpperTorso", "RightUpperArm" },
+            { "RightUpperArm", "RightLowerArm" },
+            { "RightLowerArm", "RightHand" },
+        }
+    elseif humanoid.RigType == Enum.HumanoidRigType.R6 then
+        joints = {
+            ["Head"] = character:FindFirstChild("Head"),
+            ["Torso"] = character:FindFirstChild("Torso"),
+            ["LeftArm"] = character:FindFirstChild("Left Arm"),
+            ["RightArm"] = character:FindFirstChild("Right Arm"),
+            ["LeftLeg"] = character:FindFirstChild("Left Leg"),
+            ["RightLeg"] = character:FindFirstChild("Right Leg"),
+        }
+        
+        connections = {
+            { "Head", "Torso" },
+            { "Torso", "LeftArm" },
+            { "Torso", "RightArm" },
+            { "Torso", "LeftLeg" },
+            { "Torso", "RightLeg" },
+        }
+    end
+    
+    for index, connection in ipairs(connections) do
+        local jointA = joints[connection[1]]
+        local jointB = joints[connection[2]]
+        
+        if jointA and jointB then
+            local line = Skeletons[player][index] or CreateLine()
+            Skeletons[player][index] = line
+            
+            line.Color = GetColor(ESPSettings.SkeletonColor)
+            line.Thickness = ESPSettings.SkeletonThickness
+            line.Transparency = ESPSettings.SkeletonTransparency
+            line.Visible = ESPSettings.Enabled and ESPSettings.SkeletonEnabled
+        end
+    end
+    
+    return joints, connections
+end
+
+local function UpdateESP()
+    for player, objects in pairs(ESPObjects) do
+        if not player or not player.Parent or not ESPSettings.Enabled then
+            for _, object in pairs(objects) do
+                object.Visible = false
+            end
+            
+            if Skeletons[player] then
+                for _, line in pairs(Skeletons[player]) do
+                    line.Visible = false
+                end
+            end
+            
+            if Highlights[player] and Highlights[player].Parent then
+                Highlights[player].Enabled = false
+            end
+            continue
+        end
+        
+        local character = player.Character
+        if not character then
+            for _, object in pairs(objects) do
+                object.Visible = false
+            end
+            continue
+        end
+        
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        local humanoid = character:FindFirstChild("Humanoid")
+        if not humanoidRootPart or not humanoid then
+            for _, object in pairs(objects) do
+                object.Visible = false
+            end
+            continue
+        end
+        
+        local position = humanoidRootPart.Position
+        local distance = (Camera.CFrame.Position - position).Magnitude
+        if distance > ESPSettings.MaxDistance then
+            for _, object in pairs(objects) do
+                object.Visible = false
+            end
+            continue
+        end
+        
+        local screenPosition, onScreen = Camera:WorldToViewportPoint(position)
+        if not onScreen then
+            for _, object in pairs(objects) do
+                object.Visible = false
+            end
+            continue
+        end
+        
+        if IsTeammate(player) then
+            for _, object in pairs(objects) do
+                object.Visible = false
+            end
+            continue
+        end
+        
+        local head = character:FindFirstChild("Head")
+        if not head then
+            for _, object in pairs(objects) do
+                object.Visible = false
+            end
+            continue
+        end
+        
+        local sizeMin, sizeMax
+        local success, err = pcall(function()
+            sizeMin, sizeMax = character:GetBoundingBox()
+        end)
+        
+        if not success then
+            sizeMin = head.Position - Vector3.new(2, 3, 2)
+            sizeMax = head.Position + Vector3.new(2, 3, 2)
+        end
+        
+        local topRight = Camera:WorldToViewportPoint(Vector3.new(sizeMax.X, sizeMax.Y, sizeMin.Z))
+        local topLeft = Camera:WorldToViewportPoint(Vector3.new(sizeMin.X, sizeMax.Y, sizeMin.Z))
+        local bottomRight = Camera:WorldToViewportPoint(Vector3.new(sizeMax.X, sizeMin.Y, sizeMin.Z))
+        local bottomLeft = Camera:WorldToViewportPoint(Vector3.new(sizeMin.X, sizeMin.Y, sizeMin.Z))
+        
+        objects.Box.Visible = ESPSettings.Enabled and ESPSettings.ShowBoxes
+        objects.Box.Size = Vector2.new(
+            (topRight.X - topLeft.X),
+            (topRight.Y - bottomRight.Y)
+        )
+        objects.Box.Position = Vector2.new(
+            topLeft.X,
+            topLeft.Y
+        )
+        objects.Box.Color = GetColor(ESPSettings.BoxesColor)
+        objects.Box.Transparency = ESPSettings.BoxesTransparency
+        objects.Box.Thickness = ESPSettings.BoxesThickness
+        
+        objects.Name.Visible = ESPSettings.Enabled and ESPSettings.ShowNames
+        objects.Name.Position = Vector2.new(screenPosition.X, topLeft.Y - 18)
+        objects.Name.Text = player.Name
+        objects.Name.Color = GetColor(ESPSettings.TextColor)
+        objects.Name.Size = ESPSettings.TextSize
+        
+        objects.Distance.Visible = ESPSettings.Enabled and ESPSettings.ShowDistance
+        objects.Distance.Position = Vector2.new(screenPosition.X, bottomLeft.Y + 18)
+        objects.Distance.Text = math.floor(distance) .. " м"
+        objects.Distance.Color = GetColor(ESPSettings.TextColor)
+        objects.Distance.Size = ESPSettings.TextSize
+        
+        objects.Health.Visible = ESPSettings.Enabled and ESPSettings.ShowHealth
+        objects.Health.Position = Vector2.new(topLeft.X - 20, topLeft.Y)
+        local healthPercentage = math.clamp(humanoid.Health / humanoid.MaxHealth, 0, 1)
+        objects.Health.Text = math.floor(healthPercentage * 100) .. "%"
+        objects.Health.Color = Color3.fromRGB(
+            255 * (1 - healthPercentage),
+            255 * healthPercentage,
+            0
+        )
+        objects.Health.Size = ESPSettings.TextSize
+        
+        objects.Tracer.Visible = ESPSettings.Enabled and ESPSettings.ShowTracers
+        
+        local tracerStart
+        if ESPSettings.TracerFrom == "Bottom" then
+            tracerStart = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y)
+        elseif ESPSettings.TracerFrom == "Center" then
+            tracerStart = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+        else
+            tracerStart = UserInputService:GetMouseLocation()
+        end
+        
+        objects.Tracer.From = tracerStart
+        objects.Tracer.To = Vector2.new(screenPosition.X, screenPosition.Y)
+        objects.Tracer.Color = GetColor(ESPSettings.TracerColor)
+        objects.Tracer.Thickness = ESPSettings.TracerThickness
+        objects.Tracer.Transparency = ESPSettings.TracerTransparency
+        
+        if ESPSettings.SkeletonEnabled then
+            local joints, connections = SetupSkeleton(player, character, humanoid)
+            
+            for index, connection in ipairs(connections) do
+                local jointA = joints[connection[1]]
+                local jointB = joints[connection[2]]
+                
+                if jointA and jointB and Skeletons[player][index] then
+                    local posA, onScreenA = Camera:WorldToViewportPoint(jointA.Position)
+                    local posB, onScreenB = Camera:WorldToViewportPoint(jointB.Position)
+                    
+                    if onScreenA and onScreenB then
+                        Skeletons[player][index].From = Vector2.new(posA.X, posA.Y)
+                        Skeletons[player][index].To = Vector2.new(posB.X, posB.Y)
+                        Skeletons[player][index].Visible = ESPSettings.Enabled and ESPSettings.SkeletonEnabled
+                        Skeletons[player][index].Color = GetColor(ESPSettings.SkeletonColor)
+                    else
+                        Skeletons[player][index].Visible = false
+                    end
+                end
+            end
+        else
+            if Skeletons[player] then
+                for _, line in pairs(Skeletons[player]) do
+                    line.Visible = false
+                end
+            end
+        end
+        
+        if ESPSettings.HighlightEnabled and Highlights[player] then
+            Highlights[player].Parent = character
+            Highlights[player].Enabled = ESPSettings.Enabled and ESPSettings.HighlightEnabled
+            Highlights[player].FillColor = GetColor(ESPSettings.HighlightColor)
+            Highlights[player].OutlineColor = GetColor(ESPSettings.HighlightColor)
+            Highlights[player].FillTransparency = ESPSettings.HighlightTransparency
+            Highlights[player].OutlineTransparency = ESPSettings.HighlightTransparency
+        end
+    end
+end
+
+local function PlayerAdded(player)
+    if player ~= LocalPlayer then
+        CreateESP(player)
+    end
+end
+
+local function PlayerRemoving(player)
+    RemoveESP(player)
+end
+
+local GUI = {
+    BackgroundColor = Color3.fromRGB(25, 25, 30),
+    AccentColor = Color3.fromRGB(0, 170, 255),
+    TextColor = Color3.fromRGB(255, 255, 255),
+    SecondaryColor = Color3.fromRGB(40, 40, 50),
+    HoverColor = Color3.fromRGB(50, 50, 60),
+    Red = Color3.fromRGB(255, 75, 75),
+    Green = Color3.fromRGB(75, 255, 130),
+    Yellow = Color3.fromRGB(255, 235, 60),
+}
+
+local Container = Instance.new("Frame")
+Container.Name = "ESPContainer"
+Container.Size = UDim2.new(0, 400, 0, 500)
+Container.Position = UDim2.new(0.5, -200, 0.5, -250)
+Container.BackgroundColor3 = GUI.BackgroundColor
+Container.BorderSizePixel = 0
+Container.ClipsDescendants = true
+Container.Visible = false
+Container.Parent = ESPGui
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 10)
+UICorner.Parent = Container
+
+local Shadow = Instance.new("ImageLabel")
+Shadow.Name = "Shadow"
+Shadow.Size = UDim2.new(1, 30, 1, 30)
+Shadow.Position = UDim2.new(0, -15, 0, -15)
+Shadow.BackgroundTransparency = 1
+Shadow.Image = "rbxassetid://6014261993"
+Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+Shadow.ImageTransparency = 0.5
+Shadow.ScaleType = Enum.ScaleType.Slice
+Shadow.SliceCenter = Rect.new(49, 49, 450, 450)
+Shadow.ZIndex = -1
+Shadow.Parent = Container
+
+local TopBar = Instance.new("Frame")
+TopBar.Name = "TopBar"
+TopBar.Size = UDim2.new(1, 0, 0, 40)
+TopBar.BackgroundColor3 = GUI.AccentColor
+TopBar.BorderSizePixel = 0
+TopBar.Parent = Container
+
+local TopBarCorner = Instance.new("UICorner")
+TopBarCorner.CornerRadius = UDim.new(0, 10)
+TopBarCorner.Parent = TopBar
+
+local FixCorner = Instance.new("Frame")
+FixCorner.Name = "FixCorner"
+FixCorner.Size = UDim2.new(1, 0, 0, 10)
+FixCorner.Position = UDim2.new(0, 0, 1, -10)
+FixCorner.BackgroundColor3 = GUI.AccentColor
+FixCorner.BorderSizePixel = 0
+FixCorner.ZIndex = 0
+FixCorner.Parent = TopBar
+
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Size = UDim2.new(1, -40, 1, 0)
+Title.Position = UDim2.new(0, 20, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.GothamBold
+Title.Text = "NEON ESP"
+Title.TextColor3 = GUI.TextColor
+Title.TextSize = 16
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = TopBar
+
+local CloseButton = Instance.new("TextButton")
+CloseButton.Name = "CloseButton"
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -35, 0, 5)
+CloseButton.BackgroundColor3 = GUI.Red
+CloseButton.Text = "X"
+CloseButton.TextColor3 = GUI.TextColor
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 14
+CloseButton.AutoButtonColor = false
+CloseButton.Parent = TopBar
+
+local CloseButtonCorner = Instance.new("UICorner")
+CloseButtonCorner.CornerRadius = UDim.new(0, 8)
+CloseButtonCorner.Parent = CloseButton
+
+CloseButton.MouseButton1Click:Connect(function()
+    Container.Visible = false
+end)
+
+CloseButton.MouseEnter:Connect(function()
+    TweenService:Create(CloseButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(255, 100, 100)}):Play()
+end)
+
+CloseButton.MouseLeave:Connect(function()
+    TweenService:Create(CloseButton, TweenInfo.new(0.3), {BackgroundColor3 = GUI.Red}):Play()
+end)
+
+local TabButtons = Instance.new("Frame")
+TabButtons.Name = "TabButtons"
+TabButtons.Size = UDim2.new(1, 0, 0, 40)
+TabButtons.Position = UDim2.new(0, 0, 0, 40)
+TabButtons.BackgroundColor3 = GUI.SecondaryColor
+TabButtons.BorderSizePixel = 0
+TabButtons.Parent = Container
+
+local ContentContainer = Instance.new("Frame")
+ContentContainer.Name = "ContentContainer"
+ContentContainer.Size = UDim2.new(1, 0, 1, -80)
+ContentContainer.Position = UDim2.new(0, 0, 0, 80)
+ContentContainer.BackgroundTransparency = 1
+ContentContainer.Parent = Container
+
+local function CreateTab(name)
+    local TabButton = Instance.new("TextButton")
+    TabButton.Name = name.."Tab"
+    TabButton.BackgroundTransparency = 1
+    TabButton.Text = name
+    TabButton.Font = Enum.Font.GothamSemibold
+    TabButton.TextColor3 = GUI.TextColor
+    TabButton.TextSize = 14
+    TabButton.Parent = TabButtons
+    
+    local TabContent = Instance.new("ScrollingFrame")
+    TabContent.Name = name.."Content"
+    TabContent.Size = UDim2.new(1, -20, 1, -10)
+    TabContent.Position = UDim2.new(0, 10, 0, 5)
+    TabContent.BackgroundTransparency = 1
+    TabContent.ScrollBarThickness = 4
+    TabContent.ScrollBarImageColor3 = GUI.AccentColor
+    TabContent.Visible = false
+    TabContent.Parent = ContentContainer
+    
+    local UIListLayout = Instance.new("UIListLayout")
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0, 10)
+    UIListLayout.Parent = TabContent
+    
+    local UIPadding = Instance.new("UIPadding")
+    UIPadding.PaddingTop = UDim.new(0, 10)
+    UIPadding.PaddingBottom = UDim.new(0, 10)
+    UIPadding.Parent = TabContent
+    
+    return TabButton, TabContent
+end
+
+local function CreateSlider(parent, title, min, max, defaultValue, callback)
+    local SliderContainer = Instance.new("Frame")
+    SliderContainer.Name = title.."Container"
+    SliderContainer.Size = UDim2.new(1, 0, 0, 60)
+    SliderContainer.BackgroundColor3 = GUI.BackgroundColor
+    SliderContainer.BorderSizePixel = 0
+    SliderContainer.Parent = parent
+    
+    local SliderTitle = Instance.new("TextLabel")
+    SliderTitle.Name = "Title"
+    SliderTitle.Size = UDim2.new(1, -20, 0, 20)
+    SliderTitle.Position = UDim2.new(0, 10, 0, 5)
+    SliderTitle.BackgroundTransparency = 1
+    SliderTitle.Font = Enum.Font.GothamSemibold
+    SliderTitle.Text = title
+    SliderTitle.TextColor3 = GUI.TextColor
+    SliderTitle.TextSize = 14
+    SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
+    SliderTitle.Parent = SliderContainer
+    
+    local SliderValue = Instance.new("TextLabel")
+    SliderValue.Name = "Value"
+    SliderValue.Size = UDim2.new(0, 50, 0, 20)
+    SliderValue.Position = UDim2.new(1, -60, 0, 5)
+    SliderValue.BackgroundTransparency = 1
+    SliderValue.Font = Enum.Font.GothamSemibold
+    SliderValue.Text = tostring(defaultValue)
+    SliderValue.TextColor3 = GUI.AccentColor
+    SliderValue.TextSize = 14
+    SliderValue.TextXAlignment = Enum.TextXAlignment.Right
+    SliderValue.Parent = SliderContainer
+    
+    local SliderBack = Instance.new("Frame")
+    SliderBack.Name = "Back"
+    SliderBack.Size = UDim2.new(1, -20, 0, 8)
+    SliderBack.Position = UDim2.new(0, 10, 0, 30)
+    SliderBack.BackgroundColor3 = GUI.SecondaryColor
+    SliderBack.BorderSizePixel = 0
+    SliderBack.Parent = SliderContainer
+    
+    local SliderBackCorner = Instance.new("UICorner")
+    SliderBackCorner.CornerRadius = UDim.new(0, 4)
+    SliderBackCorner.Parent = SliderBack
+    
+    local SliderFill = Instance.new("Frame")
+    SliderFill.Name = "Fill"
+    SliderFill.Size = UDim2.new((defaultValue - min) / (max - min), 0, 1, 0)
+    SliderFill.BackgroundColor3 = GUI.AccentColor
+    SliderFill.BorderSizePixel = 0
+    SliderFill.Parent = SliderBack
+    
+    local SliderFillCorner = Instance.new("UICorner")
+    SliderFillCorner.CornerRadius = UDim.new(0, 4)
+    SliderFillCorner.Parent = SliderFill
+    
+    local SliderButton = Instance.new("TextButton")
+    SliderButton.Name = "Button"
+    SliderButton.Size = UDim2.new(0, 16, 0, 16)
+    SliderButton.Position = UDim2.new((defaultValue - min) / (max - min), -8, 0, -4)
+    SliderButton.BackgroundColor3 = GUI.TextColor
+    SliderButton.Text = ""
+    SliderButton.Parent = SliderBack
+    
+    local SliderButtonCorner = Instance.new("UICorner")
+    SliderButtonCorner.CornerRadius = UDim.new(0, 8)
+    SliderButtonCorner.Parent = SliderButton
+    
+    local SliderButtonGlow = Instance.new("ImageLabel")
+    SliderButtonGlow.Name = "Glow"
+    SliderButtonGlow.Size = UDim2.new(1, 10, 1, 10)
+    SliderButtonGlow.Position = UDim2.new(0, -5, 0, -5)
+    SliderButtonGlow.BackgroundTransparency = 1
+    SliderButtonGlow.Image = "rbxassetid://6014261993"
+    SliderButtonGlow.ImageColor3 = GUI.AccentColor
+    SliderButtonGlow.ImageTransparency = 0.5
+    SliderButtonGlow.ScaleType = Enum.ScaleType.Slice
+    SliderButtonGlow.SliceCenter = Rect.new(49, 49, 450, 450)
+    SliderButtonGlow.Parent = SliderButton
+    
+    local sliding = false
+    
+    local function updateSlider(input)
+        local relativePos = math.clamp((input.Position.X - SliderBack.AbsolutePosition.X) / SliderBack.AbsoluteSize.X, 0, 1)
+        local value = min + (max - min) * relativePos
+        value = math.floor(value * 10) / 10
+        
+        TweenService:Create(SliderFill, TweenInfo.new(0.1), {Size = UDim2.new(relativePos, 0, 1, 0)}):Play()
+        TweenService:Create(SliderButton, TweenInfo.new(0.1), {Position = UDim2.new(relativePos, -8, 0, -4)}):Play()
+        
+        SliderValue.Text = tostring(value)
+        callback(value)
+    end
+    
+    SliderButton.MouseButton1Down:Connect(function()
+        sliding = true
+        TweenService:Create(SliderButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 20, 0, 20), Position = SliderButton.Position - UDim2.new(0, 2, 0, 2)}):Play()
+        TweenService:Create(SliderButtonGlow, TweenInfo.new(0.2), {ImageTransparency = 0.2, Size = UDim2.new(1, 20, 1, 20), Position = UDim2.new(0, -10, 0, -10)}):Play()
+    end)
+    
+    UserInputService.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 and sliding then
+            sliding = false
+            TweenService:Create(SliderButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 16, 0, 16), Position = SliderButton.Position + UDim2.new(0, 2, 0, 2)}):Play()
+            TweenService:Create(SliderButtonGlow, TweenInfo.new(0.2), {ImageTransparency = 0.5, Size = UDim2.new(1, 10, 1, 10), Position = UDim2.new(0, -5, 0, -5)}):Play()
+        end
+    end)
+    
+    UserInputService.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and sliding then
+            updateSlider(input)
+        end
+    end)
+    
+    SliderBack.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            updateSlider(input)
+            sliding = true
+            TweenService:Create(SliderButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 20, 0, 20), Position = SliderButton.Position - UDim2.new(0, 2, 0, 2)}):Play()
+            TweenService:Create(SliderButtonGlow, TweenInfo.new(0.2), {ImageTransparency = 0.2, Size = UDim2.new(1, 20, 1, 20), Position = UDim2.new(0, -10, 0, -10)}):Play()
+        end
+    end)
+    
+    return SliderContainer
+end
+
+local function CreateToggle(parent, title, defaultValue, callback)
+    local ToggleContainer = Instance.new("Frame")
+    ToggleContainer.Name = title.."Container"
+    ToggleContainer.Size = UDim2.new(1, 0, 0, 40)
+    ToggleContainer.BackgroundColor3 = GUI.BackgroundColor
+    ToggleContainer.BorderSizePixel = 0
+    ToggleContainer.Parent = parent
+    
+    local ToggleTitle = Instance.new("TextLabel")
+    ToggleTitle.Name = "Title"
+    ToggleTitle.Size = UDim2.new(1, -70, 1, 0)
+    ToggleTitle.Position = UDim2.new(0, 10, 0, 0)
+    ToggleTitle.BackgroundTransparency = 1
+    ToggleTitle.Font = Enum.Font.GothamSemibold
+    ToggleTitle.Text = title
+    ToggleTitle.TextColor3 = GUI.TextColor
+    ToggleTitle.TextSize = 14
+    ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
+    ToggleTitle.Parent = ToggleContainer
+    
+    local ToggleBack = Instance.new("Frame")
+    ToggleBack.Name = "Back"
+    ToggleBack.Size = UDim2.new(0, 40, 0, 20)
+    ToggleBack.Position = UDim2.new(1, -50, 0.5, -10)
+    ToggleBack.BackgroundColor3 = defaultValue and GUI.Green or GUI.Red
+    ToggleBack.BorderSizePixel = 0
+    ToggleBack.Parent = ToggleContainer
+    
+    local ToggleBackCorner = Instance.new("UICorner")
+    ToggleBackCorner.CornerRadius = UDim.new(0, 10)
+    ToggleBackCorner.Parent = ToggleBack
+    
+    local ToggleButton = Instance.new("Frame")
+    ToggleButton.Name = "Button"
+    ToggleButton.Size = UDim2.new(0, 16, 0, 16)
+    ToggleButton.Position = UDim2.new(defaultValue and 1 or 0, defaultValue and -18 or 2, 0.5, -8)
+    ToggleButton.BackgroundColor3 = GUI.TextColor
+    ToggleButton.BorderSizePixel = 0
+    ToggleButton.Parent = ToggleBack
+    
+    local ToggleButtonCorner = Instance.new("UICorner")
+    ToggleButtonCorner.CornerRadius = UDim.new(0, 8)
+    ToggleButtonCorner.Parent = ToggleButton
+    
+    local ToggleButtonGlow = Instance.new("ImageLabel")
+    ToggleButtonGlow.Name = "Glow"
+    ToggleButtonGlow.Size = UDim2.new(1, 10, 1, 10)
+    ToggleButtonGlow.Position = UDim2.new(0, -5, 0, -5)
+    ToggleButtonGlow.BackgroundTransparency = 1
+    ToggleButtonGlow.Image = "rbxassetid://6014261993"
+    ToggleButtonGlow.ImageColor3 = defaultValue and GUI.Green or GUI.Red
+    ToggleButtonGlow.ImageTransparency = 0.5
+    ToggleButtonGlow.ScaleType = Enum.ScaleType.Slice
+    ToggleButtonGlow.SliceCenter = Rect.new(49, 49, 450, 450)
+    ToggleButtonGlow.Parent = ToggleButton
+    
+    local ToggleHitbox = Instance.new("TextButton")
+    ToggleHitbox.Name = "Hitbox"
+    ToggleHitbox.Size = UDim2.new(1, 0, 1, 0)
+    ToggleHitbox.BackgroundTransparency = 1
+    ToggleHitbox.Text = ""
+    ToggleHitbox.Parent = ToggleContainer
+    
+    local enabled = defaultValue
+    
+    ToggleHitbox.MouseButton1Click:Connect(function()
+        enabled = not enabled
+        local togglePos = enabled and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8)
+        local toggleColor = enabled and GUI.Green or GUI.Red
+        
+        TweenService:Create(ToggleButton, TweenInfo.new(0.3), {Position = togglePos}):Play()
+        TweenService:Create(ToggleBack, TweenInfo.new(0.3), {BackgroundColor3 = toggleColor}):Play()
+        TweenService:Create(ToggleButtonGlow, TweenInfo.new(0.3), {ImageColor3 = toggleColor}):Play()
+        
+        TweenService:Create(ToggleButtonGlow, TweenInfo.new(0.2), {ImageTransparency = 0.2, Size = UDim2.new(1, 20, 1, 20), Position = UDim2.new(0, -10, 0, -10)}):Play()
+        task.delay(0.2, function()
+            TweenService:Create(ToggleButtonGlow, TweenInfo.new(0.2), {ImageTransparency = 0.5, Size = UDim2.new(1, 10, 1, 10), Position = UDim2.new(0, -5, 0, -5)}):Play()
+        end)
+        
+        callback(enabled)
+    end)
+    
+    ToggleHitbox.MouseEnter:Connect(function()
+        TweenService:Create(ToggleContainer, TweenInfo.new(0.3), {BackgroundColor3 = GUI.HoverColor}):Play()
+    end)
+    
+    ToggleHitbox.MouseLeave:Connect(function()
+        TweenService:Create(ToggleContainer, TweenInfo.new(0.3), {BackgroundColor3 = GUI.BackgroundColor}):Play()
+    end)
+    
+    return ToggleContainer
+end
+
+local function CreateDropdown(parent, title, options, defaultOption, callback)
+    local DropdownContainer = Instance.new("Frame")
+    DropdownContainer.Name = title.."Container"
+    DropdownContainer.Size = UDim2.new(1, 0, 0, 40)
+    DropdownContainer.BackgroundColor3 = GUI.BackgroundColor
+    DropdownContainer.BorderSizePixel = 0
+    DropdownContainer.ClipsDescendants = true
+    DropdownContainer.Parent = parent
+    
+    local DropdownTitle = Instance.new("TextLabel")
+    DropdownTitle.Name = "Title"
+    DropdownTitle.Size = UDim2.new(1, -20, 0, 20)
+    DropdownTitle.Position = UDim2.new(0, 10, 0, 5)
+    DropdownTitle.BackgroundTransparency = 1
+    DropdownTitle.Font = Enum.Font.GothamSemibold
+    DropdownTitle.Text = title
+    DropdownTitle.TextColor3 = GUI.TextColor
+    DropdownTitle.TextSize = 14
+    DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
+    DropdownTitle.Parent = DropdownContainer
+    
+    local DropdownButton = Instance.new("TextButton")
+    DropdownButton.Name = "Button"
+    DropdownButton.Size = UDim2.new(1, -20, 0, 30)
+    DropdownButton.Position = UDim2.new(0, 10, 0, 25)
+    DropdownButton.BackgroundColor3 = GUI.SecondaryColor
+    DropdownButton.Text = defaultOption
+    DropdownButton.TextColor3 = GUI.TextColor
+    DropdownButton.Font = Enum.Font.GothamSemibold
+    DropdownButton.TextSize = 14
+    DropdownButton.AutoButtonColor = false
+    DropdownButton.Parent = DropdownContainer
+    
+    local DropdownButtonCorner = Instance.new("UICorner")
+    DropdownButtonCorner.CornerRadius = UDim.new(0, 6)
+    DropdownButtonCorner.Parent = DropdownButton
+    
+    local DropdownIcon = Instance.new("ImageLabel")
+    DropdownIcon.Name = "Icon"
+    DropdownIcon.Size = UDim2.new(0, 20, 0, 20)
+    DropdownIcon.Position = UDim2.new(1, -25, 0, 5)
+    DropdownIcon.BackgroundTransparency = 1
+    DropdownIcon.Image = "rbxassetid://6034818372"
+    DropdownIcon.ImageColor3 = GUI.TextColor
+    DropdownIcon.Parent = DropdownButton
+    
+    local OptionContainer = Instance.new("Frame")
+    OptionContainer.Name = "OptionContainer"
+    OptionContainer.Size = UDim2.new(1, -20, 0, #options * 30)
+    OptionContainer.Position = UDim2.new(0, 10, 0, 60)
+    OptionContainer.BackgroundColor3 = GUI.SecondaryColor
+    OptionContainer.BorderSizePixel = 0
+    OptionContainer.Visible = false
+    OptionContainer.Parent = DropdownContainer
+    
+    local OptionContainerCorner = Instance.new("UICorner")
+    OptionContainerCorner.CornerRadius = UDim.new(0, 6)
+    OptionContainerCorner.Parent = OptionContainer
+    
+    local UIListLayout = Instance.new("UIListLayout")
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Parent = OptionContainer
+    
+    local open = false
+    local selected = defaultOption
+    
+    local function updateDropdown()
+        if open then
+            TweenService:Create(DropdownContainer, TweenInfo.new(0.3), {Size = UDim2.new(1, 0, 0, 70 + #options * 30)}):Play()
+            TweenService:Create(DropdownIcon, TweenInfo.new(0.3), {Rotation = 180}):Play()
+            OptionContainer.Visible = true
+        else
+            TweenService:Create(DropdownContainer, TweenInfo.new(0.3), {Size = UDim2.new(1, 0, 0, 60)}):Play()
+            TweenService:Create(DropdownIcon, TweenInfo.new(0.3), {Rotation = 0}):Play()
+            task.delay(0.3, function()
+                OptionContainer.Visible = false
+            end)
+        end
+    end
+    
+    for i, option in ipairs(options) do
+        local OptionButton = Instance.new("TextButton")
+        OptionButton.Name = option
+        OptionButton.Size = UDim2.new(1, 0, 0, 30)
+        OptionButton.BackgroundTransparency = 1
+        OptionButton.Text = option
+        OptionButton.TextColor3 = GUI.TextColor
+        OptionButton.Font = Enum.Font.GothamSemibold
+        OptionButton.TextSize = 14
+        OptionButton.Parent = OptionContainer
+        
+        OptionButton.MouseEnter:Connect(function()
+            TweenService:Create(OptionButton, TweenInfo.new(0.3), {BackgroundTransparency = 0.8, BackgroundColor3 = GUI.AccentColor}):Play()
+        end)
+        
+        OptionButton.MouseLeave:Connect(function()
+            TweenService:Create(OptionButton, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
+        end)
+        
+        OptionButton.MouseButton1Click:Connect(function()
+            selected = option
+            DropdownButton.Text = selected
+            open = false
+            updateDropdown()
+            callback(selected)
+        end)
+    end
+    
+    DropdownButton.MouseButton1Click:Connect(function()
+        open = not open
+        updateDropdown()
+    end)
+    
+    DropdownButton.MouseEnter:Connect(function()
+        TweenService:Create(DropdownButton, TweenInfo.new(0.3), {BackgroundColor3 = GUI.HoverColor}):Play()
+    end)
+    
+    DropdownButton.MouseLeave:Connect(function()
+        TweenService:Create(DropdownButton, TweenInfo.new(0.3), {BackgroundColor3 = GUI.SecondaryColor}):Play()
+    end)
+    
+    return DropdownContainer
+end
+
+local function CreateColorPicker(parent, title, defaultColor, callback)
+    local ColorPickerContainer = Instance.new("Frame")
+    ColorPickerContainer.Name = title.."Container"
+    ColorPickerContainer.Size = UDim2.new(1, 0, 0, 40)
+    ColorPickerContainer.BackgroundColor3 = GUI.BackgroundColor
+    ColorPickerContainer.BorderSizePixel = 0
+    ColorPickerContainer.Parent = parent
+    
+    local ColorPickerTitle = Instance.new("TextLabel")
+    ColorPickerTitle.Name = "Title"
+    ColorPickerTitle.Size = UDim2.new(1, -70, 1, 0)
+    ColorPickerTitle.Position = UDim2.new(0, 10, 0, 0)
+    ColorPickerTitle.BackgroundTransparency = 1
+    ColorPickerTitle.Font = Enum.Font.GothamSemibold
+    ColorPickerTitle.Text = title
+    ColorPickerTitle.TextColor3 = GUI.TextColor
+    ColorPickerTitle.TextSize = 14
+    ColorPickerTitle.TextXAlignment = Enum.TextXAlignment.Left
+    ColorPickerTitle.Parent = ColorPickerContainer
+    
+    local ColorDisplay = Instance.new("Frame")
+    ColorDisplay.Name = "ColorDisplay"
+    ColorDisplay.Size = UDim2.new(0, 30, 0, 30)
+    ColorDisplay.Position = UDim2.new(1, -45, 0.5, -15)
+    ColorDisplay.BackgroundColor3 = defaultColor
+    ColorDisplay.BorderSizePixel = 0
+    ColorDisplay.Parent = ColorPickerContainer
+    
+    local ColorDisplayCorner = Instance.new("UICorner")
+    ColorDisplayCorner.CornerRadius = UDim.new(0, 6)
+    ColorDisplayCorner.Parent = ColorDisplay
+    
+    local ColorPickerHitbox = Instance.new("TextButton")
+    ColorPickerHitbox.Name = "Hitbox"
+    ColorPickerHitbox.Size = UDim2.new(1, 0, 1, 0)
+    ColorPickerHitbox.BackgroundTransparency = 1
+    ColorPickerHitbox.Text = ""
+    ColorPickerHitbox.Parent = ColorPickerContainer
+    
+    local ColorPickerGui = Instance.new("Frame")
+    ColorPickerGui.Name = "ColorPickerGui"
+    ColorPickerGui.Size = UDim2.new(0, 250, 0, 200)
+    ColorPickerGui.Position = UDim2.new(1, 20, 0.5, -100)
+    ColorPickerGui.BackgroundColor3 = GUI.SecondaryColor
+    ColorPickerGui.BorderSizePixel = 0
+    ColorPickerGui.Visible = false
+    ColorPickerGui.ZIndex = 10
+    ColorPickerGui.Parent = ColorPickerContainer
+    
+    local ColorPickerCorner = Instance.new("UICorner")
+    ColorPickerCorner.CornerRadius = UDim.new(0, 8)
+    ColorPickerCorner.Parent = ColorPickerGui
+    
+    local ColorPickerTitle = Instance.new("TextLabel")
+    ColorPickerTitle.Name = "Title"
+    ColorPickerTitle.Size = UDim2.new(1, 0, 0, 30)
+    ColorPickerTitle.BackgroundTransparency = 1
+    ColorPickerTitle.Font = Enum.Font.GothamBold
+    ColorPickerTitle.Text = "Color Picker"
+    ColorPickerTitle.TextColor3 = GUI.TextColor
+    ColorPickerTitle.TextSize = 14
+    ColorPickerTitle.ZIndex = 10
+    ColorPickerTitle.Parent = ColorPickerGui
+    
+    local ColorPickerGradient = Instance.new("ImageLabel")
+    ColorPickerGradient.Name = "Gradient"
+    ColorPickerGradient.Size = UDim2.new(1, -20, 0, 100)
+    ColorPickerGradient.Position = UDim2.new(0, 10, 0, 40)
+    ColorPickerGradient.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    ColorPickerGradient.BorderSizePixel = 0
+    ColorPickerGradient.ZIndex = 10
+    ColorPickerGradient.Image = "rbxassetid://4155801252"
+    ColorPickerGradient.Parent = ColorPickerGui
+    
+    local ColorPickerGradientCorner = Instance.new("UICorner")
+    ColorPickerGradientCorner.CornerRadius = UDim.new(0, 6)
+    ColorPickerGradientCorner.Parent = ColorPickerGradient
+    
+    local ColorPickerSelector = Instance.new("Frame")
+    ColorPickerSelector.Name = "Selector"
+    ColorPickerSelector.Size = UDim2.new(0, 10, 0, 10)
+    ColorPickerSelector.BackgroundColor3 = Color3.new(1, 1, 1)
+    ColorPickerSelector.BorderSizePixel = 0
+    ColorPickerSelector.ZIndex = 11
+    ColorPickerSelector.Parent = ColorPickerGradient
+    
+    local ColorPickerSelectorCorner = Instance.new("UICorner")
+    ColorPickerSelectorCorner.CornerRadius = UDim.new(0, 5)
+    ColorPickerSelectorCorner.Parent = ColorPickerSelector
+    
+    local RainbowToggle = Instance.new("TextButton")
+    RainbowToggle.Name = "RainbowToggle"
+    RainbowToggle.Size = UDim2.new(0, 100, 0, 30)
+    RainbowToggle.Position = UDim2.new(0, 10, 0, 150)
+    RainbowToggle.BackgroundColor3 = GUI.BackgroundColor
+    RainbowToggle.Text = "Rainbow"
+    RainbowToggle.TextColor3 = GUI.TextColor
+    RainbowToggle.Font = Enum.Font.GothamSemibold
+    RainbowToggle.TextSize = 14
+    RainbowToggle.ZIndex = 10
+    RainbowToggle.AutoButtonColor = false
+    RainbowToggle.Parent = ColorPickerGui
+    
+    local RainbowToggleCorner = Instance.new("UICorner")
+    RainbowToggleCorner.CornerRadius = UDim.new(0, 6)
+    RainbowToggleCorner.Parent = RainbowToggle
+    
+    local ApplyButton = Instance.new("TextButton")
+    ApplyButton.Name = "ApplyButton"
+    ApplyButton.Size = UDim2.new(0, 100, 0, 30)
+    ApplyButton.Position = UDim2.new(1, -110, 0, 150)
+    ApplyButton.BackgroundColor3 = GUI.AccentColor
+    ApplyButton.Text = "Apply"
+    ApplyButton.TextColor3 = GUI.TextColor
+    ApplyButton.Font = Enum.Font.GothamSemibold
+    ApplyButton.TextSize = 14
+    ApplyButton.ZIndex = 10
+    ApplyButton.AutoButtonColor = false
+    ApplyButton.Parent = ColorPickerGui
+    
+    local ApplyButtonCorner = Instance.new("UICorner")
+    ApplyButtonCorner.CornerRadius = UDim.new(0, 6)
+    ApplyButtonCorner.Parent = ApplyButton
+    
+    local HueSlider = Instance.new("Frame")
+    HueSlider.Name = "HueSlider"
+    HueSlider.Size = UDim2.new(1, -20, 0, 20)
+    HueSlider.Position = UDim2.new(0, 10, 0, 120)
+    HueSlider.BackgroundColor3 = Color3.new(1, 1, 1)
+    HueSlider.BorderSizePixel = 0
+    HueSlider.ZIndex = 10
+    HueSlider.Parent = ColorPickerGui
+    
+    local HueSliderCorner = Instance.new("UICorner")
+    HueSliderCorner.CornerRadius = UDim.new(0, 6)
+    HueSliderCorner.Parent = HueSlider
+    
+    local HueSliderGradient = Instance.new("UIGradient")
+    HueSliderGradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+        ColorSequenceKeypoint.new(0.167, Color3.fromRGB(255, 255, 0)),
+        ColorSequenceKeypoint.new(0.333, Color3.fromRGB(0, 255, 0)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 255)),
+        ColorSequenceKeypoint.new(0.667, Color3.fromRGB(0, 0, 255)),
+        ColorSequenceKeypoint.new(0.833, Color3.fromRGB(255, 0, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))
+    })
+    HueSliderGradient.Parent = HueSlider
+    
+    local HueSliderSelector = Instance.new("Frame")
+    HueSliderSelector.Name = "Selector"
+    HueSliderSelector.Size = UDim2.new(0, 5, 1, 0)
+    HueSliderSelector.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    HueSliderSelector.BorderSizePixel = 0
+    HueSliderSelector.ZIndex = 11
+    HueSliderSelector.Parent = HueSlider
+    
+    local HueSliderSelectorCorner = Instance.new("UICorner")
+    HueSliderSelectorCorner.CornerRadius = UDim.new(0, 2)
+    HueSliderSelectorCorner.Parent = HueSliderSelector
+    
+    local pickerOpen = false
+    local rainbowEnabled = false
+    local currentColor = defaultColor
+    local hue, saturation, value = Color3.toHSV(defaultColor)
+    
+    local function updateColor()
+        currentColor = Color3.fromHSV(hue, saturation, value)
+        ColorPickerGradient.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
+        ColorDisplay.BackgroundColor3 = currentColor
+        if not rainbowEnabled then
+            callback(currentColor)
+        end
+    end
+    
+    ColorPickerHitbox.MouseButton1Click:Connect(function()
+        pickerOpen = not pickerOpen
+        ColorPickerGui.Visible = pickerOpen
+        if pickerOpen then
+            TweenService:Create(ColorPickerGui, TweenInfo.new(0.3), {Size = UDim2.new(0, 250, 0, 200)}):Play()
+        else
+            TweenService:Create(ColorPickerGui, TweenInfo.new(0.3), {Size = UDim2.new(0, 250, 0, 0)}):Play()
+            task.delay(0.3, function()
+                ColorPickerGui.Visible = false
+            end)
+        end
+    end)
+    
+    ColorPickerHitbox.MouseEnter:Connect(function()
+        TweenService:Create(ColorPickerContainer, TweenInfo.new(0.3), {BackgroundColor3 = GUI.HoverColor}):Play()
+    end)
+    
+    ColorPickerHitbox.MouseLeave:Connect(function()
+        TweenService:Create(ColorPickerContainer, TweenInfo.new(0.3), {BackgroundColor3 = GUI.BackgroundColor}):Play()
+    end)
+    
+    ColorPickerGradient.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            local relativeX = math.clamp((input.Position.X - ColorPickerGradient.AbsolutePosition.X) / ColorPickerGradient.AbsoluteSize.X, 0, 1)
+            local relativeY = math.clamp((input.Position.Y - ColorPickerGradient.AbsolutePosition.Y) / ColorPickerGradient.AbsoluteSize.Y, 0, 1)
+            
+            saturation = relativeX
+            value = 1 - relativeY
+            
+            ColorPickerSelector.Position = UDim2.new(relativeX, -5, relativeY, -5)
+            updateColor()
+        end
+    end)
+    
+    ColorPickerGradient.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+            local relativeX = math.clamp((input.Position.X - ColorPickerGradient.AbsolutePosition.X) / ColorPickerGradient.AbsoluteSize.X, 0, 1)
+            local relativeY = math.clamp((input.Position.Y - ColorPickerGradient.AbsolutePosition.Y) / ColorPickerGradient.AbsoluteSize.Y, 0, 1)
+            
+            saturation = relativeX
+            value = 1 - relativeY
+            
+            ColorPickerSelector.Position = UDim2.new(relativeX, -5, relativeY, -5)
+            updateColor()
+        end
+    end)
+    
+    HueSlider.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            local relativeX = math.clamp((input.Position.X - HueSlider.AbsolutePosition.X) / HueSlider.AbsoluteSize.X, 0, 1)
+            
+            hue = relativeX
+            
+            HueSliderSelector.Position = UDim2.new(relativeX, -2, 0, 0)
+            updateColor()
+        end
+    end)
+    
+    HueSlider.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+            local relativeX = math.clamp((input.Position.X - HueSlider.AbsolutePosition.X) / HueSlider.AbsoluteSize.X, 0, 1)
+            
+            hue = relativeX
+            
+            HueSliderSelector.Position = UDim2.new(relativeX, -2, 0, 0)
+            updateColor()
+        end
+    end)
+    
+    RainbowToggle.MouseButton1Click:Connect(function()
+        rainbowEnabled = not rainbowEnabled
+        RainbowToggle.BackgroundColor3 = rainbowEnabled and GUI.Green or GUI.BackgroundColor
+        ESPSettings.RainbowEffect = rainbowEnabled
+        if rainbowEnabled then
+            callback(Color3.fromRGB(255, 255, 255))
+        else
+            callback(currentColor)
+        end
+    end)
+    
+    RainbowToggle.MouseEnter:Connect(function()
+        TweenService:Create(RainbowToggle, TweenInfo.new(0.3), {BackgroundColor3 = rainbowEnabled and GUI.Green or GUI.HoverColor}):Play()
+    end)
+    
+    RainbowToggle.MouseLeave:Connect(function()
+        TweenService:Create(RainbowToggle, TweenInfo.new(0.3), {BackgroundColor3 = rainbowEnabled and GUI.Green or GUI.BackgroundColor}):Play()
+    end)
+    
+    ApplyButton.MouseButton1Click:Connect(function()
+        pickerOpen = false
+        TweenService:Create(ColorPickerGui, TweenInfo.new(0.3), {Size = UDim2.new(0, 250, 0, 0)}):Play()
+        task.delay(0.3, function()
+            ColorPickerGui.Visible = false
+        end)
+    end)
+    
+    ApplyButton.MouseEnter:Connect(function()
+        TweenService:Create(ApplyButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(0, 200, 255)}):Play()
+    end)
+    
+    ApplyButton.MouseLeave:Connect(function()
+        TweenService:Create(ApplyButton, TweenInfo.new(0.3), {BackgroundColor3 = GUI.AccentColor}):Play()
+    end)
+    
+    return ColorPickerContainer
+end
+
+local GeneralTabButton, GeneralTabContent = CreateTab("General")
+local VisualsTabButton, VisualsTabContent = CreateTab("Visuals")
+local EffectsTabButton, EffectsTabContent = CreateTab("Effects")
+
+local TabButtonLayout = Instance.new("UIListLayout")
+TabButtonLayout.FillDirection = Enum.FillDirection.Horizontal
+TabButtonLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+TabButtonLayout.Padding = UDim.new(0, 10)
+TabButtonLayout.Parent = TabButtons
+
+GeneralTabButton.Size = UDim2.new(0, 100, 1, 0)
+VisualsTabButton.Size = UDim2.new(0, 100, 1, 0)
+EffectsTabButton.Size = UDim2.new(0, 100, 1, 0)
+
+local currentTab = GeneralTabContent
+GeneralTabContent.Visible = true
+
+local function switchTab(newTab)
+    if currentTab == newTab then return end
+    TweenService:Create(currentTab, TweenInfo.new(0.3), {CanvasPosition = Vector2.new(0, 0)}):Play()
+    currentTab.Visible = false
+    newTab.Visible = true
+    currentTab = newTab
+end
+
+GeneralTabButton.MouseButton1Click:Connect(function()
+    switchTab(GeneralTabContent)
+    TweenService:Create(GeneralTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.AccentColor}):Play()
+    TweenService:Create(VisualsTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.TextColor}):Play()
+    TweenService:Create(EffectsTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.TextColor}):Play()
+end)
+
+VisualsTabButton.MouseButton1Click:Connect(function()
+    switchTab(VisualsTabContent)
+    TweenService:Create(GeneralTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.TextColor}):Play()
+    TweenService:Create(VisualsTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.AccentColor}):Play()
+    TweenService:Create(EffectsTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.TextColor}):Play()
+end)
+
+EffectsTabButton.MouseButton1Click:Connect(function()
+    switchTab(EffectsTabContent)
+    TweenService:Create(GeneralTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.TextColor}):Play()
+    TweenService:Create(VisualsTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.TextColor}):Play()
+    TweenService:Create(EffectsTabButton, TweenInfo.new(0.3), {TextColor3 = GUI.AccentColor}):Play()
+end)
+
+CreateToggle(GeneralTabContent, "ESP Enabled", ESPSettings.Enabled, function(value)
+    ESPSettings.Enabled = value
+end)
+
+CreateToggle(GeneralTabContent, "Team Check", ESPSettings.TeamCheck, function(value)
+    ESPSettings.TeamCheck = value
+end)
+
+CreateSlider(GeneralTabContent, "Max Distance", 100, 5000, ESPSettings.MaxDistance, function(value)
+    ESPSettings.MaxDistance = value
+end)
+
+CreateSlider(GeneralTabContent, "Refresh Rate", 1, 100, ESPSettings.RefreshRate, function(value)
+    ESPSettings.RefreshRate = value
+end)
+
+CreateToggle(VisualsTabContent, "Show Names", ESPSettings.ShowNames, function(value)
+    ESPSettings.ShowNames = value
+end)
+
+CreateToggle(VisualsTabContent, "Show Distance", ESPSettings.ShowDistance, function(value)
+    ESPSettings.ShowDistance = value
+end)
+
+CreateToggle(VisualsTabContent, "Show Health", ESPSettings.ShowHealth, function(value)
+    ESPSettings.ShowHealth = value
+end)
+
+CreateToggle(VisualsTabContent, "Show Boxes", ESPSettings.ShowBoxes, function(value)
+    ESPSettings.ShowBoxes = value
+end)
+
+CreateToggle(VisualsTabContent, "Show Tracers", ESPSettings.ShowTracers, function(value)
+    ESPSettings.ShowTracers = value
+end)
+
+CreateToggle(VisualsTabContent, "Show Skeleton", ESPSettings.SkeletonEnabled, function(value)
+    ESPSettings.SkeletonEnabled = value
+end)
+
+CreateToggle(VisualsTabContent, "Show Highlight", ESPSettings.HighlightEnabled, function(value)
+    ESPSettings.HighlightEnabled = value
+end)
+
+CreateSlider(VisualsTabContent, "Box Transparency", 0, 1, ESPSettings.BoxesTransparency, function(value)
+    ESPSettings.BoxesTransparency = value
+end)
+
+CreateSlider(VisualsTabContent, "Box Thickness", 1, 5, ESPSettings.BoxesThickness, function(value)
+    ESPSettings.BoxesThickness = value
+end)
+
+CreateSlider(VisualsTabContent, "Skeleton Transparency", 0, 1, ESPSettings.SkeletonTransparency, function(value)
+    ESPSettings.SkeletonTransparency = value
+end)
+
+CreateSlider(VisualsTabContent, "Skeleton Thickness", 1, 5, ESPSettings.SkeletonThickness, function(value)
+    ESPSettings.SkeletonThickness = value
+end)
+
+CreateSlider(VisualsTabContent, "Highlight Transparency", 0, 1, ESPSettings.HighlightTransparency, function(value)
+    ESPSettings.HighlightTransparency = value
+end)
+
+CreateSlider(VisualsTabContent, "Tracer Transparency", 0, 1, ESPSettings.TracerTransparency, function(value)
+    ESPSettings.TracerTransparency = value
+end)
+
+CreateSlider(VisualsTabContent, "Tracer Thickness", 1, 5, ESPSettings.TracerThickness, function(value)
+    ESPSettings.TracerThickness = value
+end)
+
+CreateSlider(VisualsTabContent, "Text Size", 10, 20, ESPSettings.TextSize, function(value)
+    ESPSettings.TextSize = value
+end)
+
+CreateColorPicker(VisualsTabContent, "Box Color", ESPSettings.BoxesColor, function(value)
+    ESPSettings.BoxesColor = value
+end)
+
+CreateColorPicker(VisualsTabContent, "Skeleton Color", ESPSettings.SkeletonColor, function(value)
+    ESPSettings.SkeletonColor = value
+end)
+
+CreateColorPicker(VisualsTabContent, "Highlight Color", ESPSettings.HighlightColor, function(value)
+    ESPSettings.HighlightColor = value
+end)
+
+CreateColorPicker(VisualsTabContent, "Tracer Color", ESPSettings.TracerColor, function(value)
+    ESPSettings.TracerColor = value
+end)
+
+CreateColorPicker(VisualsTabContent, "Text Color", ESPSettings.TextColor, function(value)
+    ESPSettings.TextColor = value
+end)
+
+CreateColorPicker(VisualsTabContent, "Text Outline Color", ESPSettings.TextOutlineColor, function(value)
+    ESPSettings.TextOutlineColor = value
+end)
+
+CreateToggle(EffectsTabContent, "Pulsating Effect", ESPSettings.PulsatingEffect, function(value)
+    ESPSettings.PulsatingEffect = value
+end)
+
+CreateSlider(EffectsTabContent, "Pulsate Speed", 0.1, 5, ESPSettings.PulsateSpeed, function(value)
+    ESPSettings.PulsateSpeed = value
+end)
+
+CreateDropdown(EffectsTabContent, "Tracer From", {"Bottom", "Center", "Mouse"}, ESPSettings.TracerFrom, function(value)
+    ESPSettings.TracerFrom = value
+end)
+
+local OpenCloseButton = Instance.new("TextButton")
+OpenCloseButton.Size = UDim2.new(0, 50, 0, 50)
+OpenCloseButton.Position = UDim2.new(0, 10, 0, 10)
+OpenCloseButton.BackgroundColor3 = GUI.AccentColor
+OpenCloseButton.Text = "ESP"
+OpenCloseButton.TextColor3 = GUI.TextColor
+OpenCloseButton.Font = Enum.Font.GothamBold
+OpenCloseButton.TextSize = 14
+OpenCloseButton.AutoButtonColor = false
+OpenCloseButton.Parent = ESPGui
+
+local OpenCloseButtonCorner = Instance.new("UICorner")
+OpenCloseButtonCorner.CornerRadius = UDim.new(0, 12)
+OpenCloseButtonCorner.Parent = OpenCloseButton
+
+local OpenCloseButtonGlow = Instance.new("ImageLabel")
+OpenCloseButtonGlow.Size = UDim2.new(1, 20, 1, 20)
+OpenCloseButtonGlow.Position = UDim2.new(0, -10, 0, -10)
+OpenCloseButtonGlow.BackgroundTransparency = 1
+OpenCloseButtonGlow.Image = "rbxassetid://6014261993"
+OpenCloseButtonGlow.ImageColor3 = GUI.AccentColor
+OpenCloseButtonGlow.ImageTransparency = 0.5
+OpenCloseButtonGlow.ScaleType = Enum.ScaleType.Slice
+OpenCloseButtonGlow.SliceCenter = Rect.new(49, 49, 450, 450)
+OpenCloseButtonGlow.Parent = OpenCloseButton
+
+OpenCloseButton.MouseButton1Click:Connect(function()
+    Container.Visible = not Container.Visible
+    if Container.Visible then
+        TweenService:Create(Container, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -200, 0.5, -250)}):Play()
+        TweenService:Create(OpenCloseButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+        TweenService:Create(OpenCloseButtonGlow, TweenInfo.new(0.3), {ImageTransparency = 1}):Play()
+    else
+        TweenService:Create(Container, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(0.5, -200, 0, -500)}):Play()
+        TweenService:Create(OpenCloseButton, TweenInfo.new(0.3), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+        TweenService:Create(OpenCloseButtonGlow, TweenInfo.new(0.3), {ImageTransparency = 0.5}):Play()
+    end
+end)
+
+OpenCloseButton.MouseEnter:Connect(function()
+    TweenService:Create(OpenCloseButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(0, 200, 255)}):Play()
+    TweenService:Create(OpenCloseButtonGlow, TweenInfo.new(0.3), {ImageTransparency = 0.2}):Play()
+end)
+
+OpenCloseButton.MouseLeave:Connect(function()
+    TweenService:Create(OpenCloseButton, TweenInfo.new(0.3), {BackgroundColor3 = GUI.AccentColor}):Play()
+    TweenService:Create(OpenCloseButtonGlow, TweenInfo.new(0.3), {ImageTransparency = 0.5}):Play()
+end)
+
+for _, player in ipairs(Players:GetPlayers()) do
+    PlayerAdded(player)
+end
+
+Players.PlayerAdded:Connect(PlayerAdded)
+Players.PlayerRemoving:Connect(PlayerRemoving)
+
+RunService:BindToRenderStep("ESPUpdate", Enum.RenderPriority.Camera.Value + 1, function()
+    UpdateESP()
+end)
