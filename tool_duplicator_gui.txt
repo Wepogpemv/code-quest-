@@ -1,0 +1,649 @@
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local backpack = player:WaitForChild("Backpack")
+
+if playerGui:FindFirstChild("CodeQuestDuplicator") then
+    playerGui:FindFirstChild("CodeQuestDuplicator"):Destroy()
+end
+
+local camera = workspace.CurrentCamera
+local screenSize = camera.ViewportSize
+local isMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
+
+local guiScale = isMobile and 0.7 or 0.45
+local buttonHeight = isMobile and 50 or 35
+local fontSize = isMobile and 14 or 12
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "CodeQuestDuplicator"
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.IgnoreGuiInset = true
+gui.Parent = playerGui
+
+local overlay = Instance.new("Frame")
+overlay.Name = "Overlay"
+overlay.Size = UDim2.new(1, 0, 1, 0)
+overlay.Position = UDim2.new(0, 0, 0, 0)
+overlay.BackgroundColor3 = Color3.new(0, 0, 0)
+overlay.BackgroundTransparency = 1
+overlay.BorderSizePixel = 0
+overlay.Parent = gui
+
+local mainContainer = Instance.new("Frame")
+mainContainer.Name = "MainContainer"
+mainContainer.Size = UDim2.new(guiScale, 0, guiScale, 0)
+mainContainer.Position = UDim2.new(0.5, 0, 0.5, 0)
+mainContainer.AnchorPoint = Vector2.new(0.5, 0.5)
+mainContainer.BackgroundColor3 = Color3.fromRGB(12, 12, 18)
+mainContainer.BackgroundTransparency = 0.15
+mainContainer.BorderSizePixel = 0
+mainContainer.ClipsDescendants = true
+mainContainer.Parent = overlay
+
+local blur = Instance.new("Frame")
+blur.Size = UDim2.new(1, 0, 1, 0)
+blur.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+blur.BackgroundTransparency = 0.97
+blur.BorderSizePixel = 0
+blur.Parent = mainContainer
+
+local borderGlow = Instance.new("Frame")
+borderGlow.Name = "BorderGlow"
+borderGlow.Size = UDim2.new(1, 8, 1, 8)
+borderGlow.Position = UDim2.new(0.5, 0, 0.5, 0)
+borderGlow.AnchorPoint = Vector2.new(0.5, 0.5)
+borderGlow.BackgroundTransparency = 1
+borderGlow.ZIndex = -1
+borderGlow.Parent = mainContainer
+
+for i = 1, 3 do
+    local glowLayer = Instance.new("Frame")
+    glowLayer.Size = UDim2.new(1, i * 2, 1, i * 2)
+    glowLayer.Position = UDim2.new(0.5, 0, 0.5, 0)
+    glowLayer.AnchorPoint = Vector2.new(0.5, 0.5)
+    glowLayer.BackgroundTransparency = 0.7 + (i * 0.1)
+    glowLayer.BorderSizePixel = 0
+    glowLayer.Parent = borderGlow
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 20)
+    corner.Parent = glowLayer
+    
+    local gradient = Instance.new("UIGradient")
+    gradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 100, 255)),
+        ColorSequenceKeypoint.new(0.33, Color3.fromRGB(100, 200, 255)),
+        ColorSequenceKeypoint.new(0.66, Color3.fromRGB(255, 255, 100)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 100, 100))
+    })
+    gradient.Parent = glowLayer
+end
+
+local mainCorner = Instance.new("UICorner")
+mainCorner.CornerRadius = UDim.new(0, 18)
+mainCorner.Parent = mainContainer
+
+local resizeHandle = Instance.new("Frame")
+resizeHandle.Name = "ResizeHandle"
+resizeHandle.Size = UDim2.new(1, 0, 0, 4)
+resizeHandle.Position = UDim2.new(0, 0, 1, -4)
+resizeHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+resizeHandle.BackgroundTransparency = 0.95
+resizeHandle.BorderSizePixel = 0
+resizeHandle.Parent = mainContainer
+
+local resizeCorner = Instance.new("UICorner")
+resizeCorner.CornerRadius = UDim.new(0, 2)
+resizeCorner.Parent = resizeHandle
+
+local particlesFrame = Instance.new("Frame")
+particlesFrame.Size = UDim2.new(1, 0, 1, 0)
+particlesFrame.BackgroundTransparency = 1
+particlesFrame.Parent = mainContainer
+
+for i = 1, 10 do
+    local particle = Instance.new("Frame")
+    particle.Size = UDim2.new(0, math.random(2, 3), 0, math.random(2, 3))
+    particle.Position = UDim2.new(math.random(), 0, math.random(), 0)
+    particle.BackgroundColor3 = Color3.fromRGB(
+        math.random(100, 255),
+        math.random(100, 255),
+        math.random(200, 255)
+    )
+    particle.BackgroundTransparency = math.random(70, 90) / 100
+    particle.BorderSizePixel = 0
+    particle.Parent = particlesFrame
+    
+    local particleCorner = Instance.new("UICorner")
+    particleCorner.CornerRadius = UDim.new(1, 0)
+    particleCorner.Parent = particle
+end
+
+local header = Instance.new("Frame")
+header.Size = UDim2.new(1, 0, 0, 60)
+header.BackgroundTransparency = 1
+header.Parent = mainContainer
+
+local titleMain = Instance.new("TextLabel")
+titleMain.Size = UDim2.new(1, 0, 0.6, 0)
+titleMain.Position = UDim2.new(0, 0, 0, 8)
+titleMain.BackgroundTransparency = 1
+titleMain.Text = "CODE QUEST"
+titleMain.TextColor3 = Color3.new(1, 1, 1)
+titleMain.TextScaled = true
+titleMain.Font = Enum.Font.GothamBold
+titleMain.Parent = header
+
+local titleGradient = Instance.new("UIGradient")
+titleGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 150, 255)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(150, 255, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 150))
+})
+titleGradient.Parent = titleMain
+
+local subtitle = Instance.new("TextLabel")
+subtitle.Size = UDim2.new(1, 0, 0.4, 0)
+subtitle.Position = UDim2.new(0, 0, 0.6, 0)
+subtitle.BackgroundTransparency = 1
+subtitle.Text = "Tool Duplicator Pro"
+subtitle.TextColor3 = Color3.fromRGB(180, 180, 255)
+subtitle.TextScaled = true
+subtitle.Font = Enum.Font.Gotham
+subtitle.Parent = header
+
+local toolsContainer = Instance.new("Frame")
+toolsContainer.Size = UDim2.new(1, -20, 1, -140)
+toolsContainer.Position = UDim2.new(0, 10, 0, 70)
+toolsContainer.BackgroundColor3 = Color3.fromRGB(8, 8, 12)
+toolsContainer.BackgroundTransparency = 0.3
+toolsContainer.BorderSizePixel = 0
+toolsContainer.Parent = mainContainer
+
+local toolsCorner = Instance.new("UICorner")
+toolsCorner.CornerRadius = UDim.new(0, 12)
+toolsCorner.Parent = toolsContainer
+
+local toolsGradient = Instance.new("UIGradient")
+toolsGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(15, 15, 25)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(8, 8, 15))
+})
+toolsGradient.Rotation = 90
+toolsGradient.Parent = toolsContainer
+
+local toolsScroll = Instance.new("ScrollingFrame")
+toolsScroll.Size = UDim2.new(1, -8, 1, -8)
+toolsScroll.Position = UDim2.new(0, 4, 0, 4)
+toolsScroll.BackgroundTransparency = 1
+toolsScroll.BorderSizePixel = 0
+toolsScroll.ScrollBarThickness = 3
+toolsScroll.ScrollBarImageColor3 = Color3.fromRGB(150, 150, 255)
+toolsScroll.Parent = toolsContainer
+
+local scrollLayout = Instance.new("UIListLayout")
+scrollLayout.Padding = UDim.new(0, 5)
+scrollLayout.Parent = toolsScroll
+
+local controlsFrame = Instance.new("Frame")
+controlsFrame.Size = UDim2.new(1, -20, 0, 60)
+controlsFrame.Position = UDim2.new(0, 10, 1, -70)
+controlsFrame.BackgroundTransparency = 1
+controlsFrame.Parent = mainContainer
+
+local controlsLayout = Instance.new("UIListLayout")
+controlsLayout.FillDirection = Enum.FillDirection.Horizontal
+controlsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+controlsLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+controlsLayout.Padding = UDim.new(0, 10)
+controlsLayout.Parent = controlsFrame
+
+local function createNeonButton(text, color, icon)
+    local buttonFrame = Instance.new("Frame")
+    buttonFrame.Size = UDim2.new(0, isMobile and 100 or 80, 0, buttonHeight)
+    buttonFrame.BackgroundTransparency = 1
+    buttonFrame.Parent = controlsFrame
+    
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, 0, 1, 0)
+    button.BackgroundColor3 = color
+    button.BackgroundTransparency = 0.2
+    button.BorderSizePixel = 0
+    button.Text = ""
+    button.Parent = buttonFrame
+    
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 10)
+    buttonCorner.Parent = button
+    
+    local buttonGlow = Instance.new("Frame")
+    buttonGlow.Size = UDim2.new(1, 3, 1, 3)
+    buttonGlow.Position = UDim2.new(0.5, 0, 0.5, 0)
+    buttonGlow.AnchorPoint = Vector2.new(0.5, 0.5)
+    buttonGlow.BackgroundColor3 = color
+    buttonGlow.BackgroundTransparency = 0.7
+    buttonGlow.BorderSizePixel = 0
+    buttonGlow.ZIndex = -1
+    buttonGlow.Parent = button
+    
+    local glowCorner = Instance.new("UICorner")
+    glowCorner.CornerRadius = UDim.new(0, 12)
+    glowCorner.Parent = buttonGlow
+    
+    local buttonText = Instance.new("TextLabel")
+    buttonText.Size = UDim2.new(1, 0, 1, 0)
+    buttonText.BackgroundTransparency = 1
+    buttonText.Text = text
+    buttonText.TextColor3 = Color3.new(1, 1, 1)
+    buttonText.TextScaled = true
+    buttonText.Font = Enum.Font.GothamBold
+    buttonText.Parent = button
+    
+    button.MouseEnter:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
+            BackgroundTransparency = 0,
+            Size = UDim2.new(1.05, 0, 1.05, 0)
+        }):Play()
+        
+        TweenService:Create(buttonGlow, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
+            BackgroundTransparency = 0.4,
+            Size = UDim2.new(1, 6, 1, 6)
+        }):Play()
+    end)
+    
+    button.MouseLeave:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
+            BackgroundTransparency = 0.2,
+            Size = UDim2.new(1, 0, 1, 0)
+        }):Play()
+        
+        TweenService:Create(buttonGlow, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
+            BackgroundTransparency = 0.7,
+            Size = UDim2.new(1, 3, 1, 3)
+        }):Play()
+    end)
+    
+    return button
+end
+
+local refreshBtn = createNeonButton("REFRESH", Color3.fromRGB(100, 255, 150))
+local duplicateAllBtn = createNeonButton("DUPE ALL", Color3.fromRGB(255, 150, 100))
+local closeBtn = createNeonButton("CLOSE", Color3.fromRGB(255, 100, 100))
+
+local xButton = Instance.new("TextButton")
+xButton.Size = UDim2.new(0, 25, 0, 25)
+xButton.Position = UDim2.new(1, -30, 0, 5)
+xButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+xButton.BackgroundTransparency = 0.3
+xButton.BorderSizePixel = 0
+xButton.Text = "×"
+xButton.TextColor3 = Color3.new(1, 1, 1)
+xButton.TextScaled = true
+xButton.Font = Enum.Font.GothamBold
+xButton.Parent = mainContainer
+
+local xCorner = Instance.new("UICorner")
+xCorner.CornerRadius = UDim.new(1, 0)
+xCorner.Parent = xButton
+
+local minimizedIcon = Instance.new("ImageButton")
+minimizedIcon.Name = "MinimizedIcon"
+minimizedIcon.Size = UDim2.new(0, 50, 0, 50)
+minimizedIcon.Position = UDim2.new(1, -60, 1, -60)
+minimizedIcon.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
+minimizedIcon.BackgroundTransparency = 0.2
+minimizedIcon.BorderSizePixel = 0
+minimizedIcon.Image = ""
+minimizedIcon.Visible = false
+minimizedIcon.Parent = gui
+
+local iconCorner = Instance.new("UICorner")
+iconCorner.CornerRadius = UDim.new(1, 0)
+iconCorner.Parent = minimizedIcon
+
+local iconGlow = Instance.new("Frame")
+iconGlow.Size = UDim2.new(1, 4, 1, 4)
+iconGlow.Position = UDim2.new(0.5, 0, 0.5, 0)
+iconGlow.AnchorPoint = Vector2.new(0.5, 0.5)
+iconGlow.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
+iconGlow.BackgroundTransparency = 0.6
+iconGlow.BorderSizePixel = 0
+iconGlow.ZIndex = -1
+iconGlow.Parent = minimizedIcon
+
+local iconGlowCorner = Instance.new("UICorner")
+iconGlowCorner.CornerRadius = UDim.new(1, 0)
+iconGlowCorner.Parent = iconGlow
+
+local iconText = Instance.new("TextLabel")
+iconText.Size = UDim2.new(1, 0, 1, 0)
+iconText.BackgroundTransparency = 1
+iconText.Text = "CQ"
+iconText.TextColor3 = Color3.new(1, 1, 1)
+iconText.TextScaled = true
+iconText.Font = Enum.Font.GothamBold
+iconText.Parent = minimizedIcon
+
+local function duplicateTool(toolName)
+    local tool = backpack:FindFirstChild(toolName) or (player.Character and player.Character:FindFirstChild(toolName))
+    
+    if tool and tool:IsA("Tool") then
+        local duplicate = tool:Clone()
+        duplicate.Name = tool.Name .. " (Copy)"
+        
+        for _, child in pairs(duplicate:GetDescendants()) do
+            if child:IsA("Script") or child:IsA("LocalScript") or child:IsA("ModuleScript") then
+                child:Destroy()
+            end
+        end
+        
+        duplicate.Parent = backpack
+        return true
+    end
+    return false
+end
+
+local function getAllTools()
+    local tools = {}
+    
+    for _, item in pairs(backpack:GetChildren()) do
+        if item:IsA("Tool") then
+            table.insert(tools, item)
+        end
+    end
+    
+    if player.Character then
+        for _, item in pairs(player.Character:GetChildren()) do
+            if item:IsA("Tool") then
+                table.insert(tools, item)
+            end
+        end
+    end
+    
+    return tools
+end
+
+local function createToolItem(tool)
+    local item = Instance.new("Frame")
+    item.Size = UDim2.new(1, 0, 0, buttonHeight)
+    item.BackgroundColor3 = Color3.fromRGB(20, 20, 35)
+    item.BackgroundTransparency = 0.3
+    item.BorderSizePixel = 0
+    item.Parent = toolsScroll
+    
+    local itemCorner = Instance.new("UICorner")
+    itemCorner.CornerRadius = UDim.new(0, 6)
+    itemCorner.Parent = item
+    
+    local itemGradient = Instance.new("UIGradient")
+    itemGradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 40)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 25))
+    })
+    itemGradient.Rotation = 45
+    itemGradient.Parent = item
+    
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, 0, 1, 0)
+    button.BackgroundTransparency = 1
+    button.Text = tool.Name
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.TextScaled = true
+    button.Font = Enum.Font.Gotham
+    button.Parent = item
+    
+    button.MouseEnter:Connect(function()
+        TweenService:Create(item, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
+            BackgroundTransparency = 0.1,
+            Size = UDim2.new(1, 3, 0, buttonHeight + 2)
+        }):Play()
+        
+        TweenService:Create(button, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
+            TextColor3 = Color3.fromRGB(150, 255, 255)
+        }):Play()
+    end)
+    
+    button.MouseLeave:Connect(function()
+        TweenService:Create(item, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
+            BackgroundTransparency = 0.3,
+            Size = UDim2.new(1, 0, 0, buttonHeight)
+        }):Play()
+        
+        TweenService:Create(button, TweenInfo.new(0.15, Enum.EasingStyle.Quad), {
+            TextColor3 = Color3.new(1, 1, 1)
+        }):Play()
+    end)
+    
+    button.MouseButton1Click:Connect(function()
+        TweenService:Create(item, TweenInfo.new(0.1, Enum.EasingStyle.Quad), {
+            BackgroundColor3 = Color3.fromRGB(100, 255, 100)
+        }):Play()
+        
+        wait(0.1)
+        
+        TweenService:Create(item, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {
+            BackgroundColor3 = Color3.fromRGB(20, 20, 35)
+        }):Play()
+        
+        if duplicateTool(tool.Name) then
+            StarterGui:SetCore("SendNotification", {
+                Title = "✅ Success!";
+                Text = "Duplicated: " .. tool.Name;
+                Duration = 2;
+            })
+        end
+    end)
+end
+
+local function refreshTools()
+    for _, child in pairs(toolsScroll:GetChildren()) do
+        if child:IsA("Frame") then
+            child:Destroy()
+        end
+    end
+    
+    local tools = getAllTools()
+    for _, tool in pairs(tools) do
+        createToolItem(tool)
+    end
+    
+    toolsScroll.CanvasSize = UDim2.new(0, 0, 0, #tools * (buttonHeight + 5))
+end
+
+refreshBtn.MouseButton1Click:Connect(function()
+    TweenService:Create(refreshBtn, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {Rotation = 360}):Play()
+    refreshTools()
+    refreshBtn.Rotation = 0
+end)
+
+duplicateAllBtn.MouseButton1Click:Connect(function()
+    local tools = getAllTools()
+    local count = 0
+    
+    for _, tool in pairs(tools) do
+        if duplicateTool(tool.Name) then
+            count = count + 1
+        end
+        wait(0.05)
+    end
+    
+    StarterGui:SetCore("SendNotification", {
+        Title = "🚀 Batch Complete!";
+        Text = "Duplicated " .. count .. " tools";
+        Duration = 3;
+    })
+end)
+
+local function minimizeGUI()
+    TweenService:Create(overlay, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {BackgroundTransparency = 1}):Play()
+    TweenService:Create(mainContainer, TweenInfo.new(0.3, Enum.EasingStyle.Back), {
+        Size = UDim2.new(0, 0, 0, 0),
+        Position = UDim2.new(1, -30, 1, -30)
+    }):Play()
+    
+    wait(0.3)
+    overlay.Visible = false
+    minimizedIcon.Visible = true
+    
+    TweenService:Create(minimizedIcon, TweenInfo.new(0.3, Enum.EasingStyle.Back), {
+        Size = UDim2.new(0, 50, 0, 50)
+    }):Play()
+end
+
+local function restoreGUI()
+    minimizedIcon.Visible = false
+    overlay.Visible = true
+    
+    TweenService:Create(overlay, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {BackgroundTransparency = 0.3}):Play()
+    TweenService:Create(mainContainer, TweenInfo.new(0.4, Enum.EasingStyle.Back), {
+        Size = UDim2.new(guiScale, 0, guiScale, 0),
+        Position = UDim2.new(0.5, 0, 0.5, 0)
+    }):Play()
+end
+
+local function closeGUI()
+    TweenService:Create(overlay, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {BackgroundTransparency = 1}):Play()
+    TweenService:Create(mainContainer, TweenInfo.new(0.4, Enum.EasingStyle.Back), {
+        Size = UDim2.new(0, 0, 0, 0),
+        Rotation = 180
+    }):Play()
+    
+    wait(0.4)
+    gui:Destroy()
+end
+
+closeBtn.MouseButton1Click:Connect(minimizeGUI)
+xButton.MouseButton1Click:Connect(closeGUI)
+minimizedIcon.MouseButton1Click:Connect(restoreGUI)
+
+local resizing = false
+local resizeStart = nil
+local startSize = nil
+
+resizeHandle.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        resizing = true
+        resizeStart = input.Position
+        startSize = mainContainer.Size
+        
+        TweenService:Create(resizeHandle, TweenInfo.new(0.1, Enum.EasingStyle.Quad), {
+            BackgroundTransparency = 0.8
+        }):Play()
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if resizing and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - resizeStart
+        local newScale = math.max(0.3, math.min(0.9, startSize.X.Scale + (delta.Y / screenSize.Y) * 0.5))
+        
+        mainContainer.Size = UDim2.new(newScale, 0, newScale, 0)
+        guiScale = newScale
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        if resizing then
+            resizing = false
+            TweenService:Create(resizeHandle, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
+                BackgroundTransparency = 0.95
+            }):Play()
+        end
+    end
+end)
+
+mainContainer.Size = UDim2.new(0, 0, 0, 0)
+mainContainer.Rotation = -180
+
+TweenService:Create(overlay, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {BackgroundTransparency = 0.3}):Play()
+TweenService:Create(mainContainer, TweenInfo.new(0.6, Enum.EasingStyle.Back), {
+    Size = UDim2.new(guiScale, 0, guiScale, 0),
+    Rotation = 0
+}):Play()
+
+spawn(function()
+    while gui.Parent do
+        for _, layer in pairs(borderGlow:GetChildren()) do
+            if layer:FindFirstChild("UIGradient") then
+                TweenService:Create(layer.UIGradient, TweenInfo.new(3, Enum.EasingStyle.Linear), {
+                    Offset = Vector2.new(1, 0)
+                }):Play()
+            end
+        end
+        wait(3)
+        
+        for _, layer in pairs(borderGlow:GetChildren()) do
+            if layer:FindFirstChild("UIGradient") then
+                layer.UIGradient.Offset = Vector2.new(-1, 0)
+            end
+        end
+    end
+end)
+
+spawn(function()
+    while gui.Parent do
+        for _, particle in pairs(particlesFrame:GetChildren()) do
+            if particle:IsA("Frame") then
+                local randomX = math.random() * 0.8 + 0.1
+                local randomY = math.random() * 0.8 + 0.1
+                
+                TweenService:Create(particle, TweenInfo.new(
+                    math.random(3, 6), 
+                    Enum.EasingStyle.Sine
+                ), {
+                    Position = UDim2.new(randomX, 0, randomY, 0),
+                    BackgroundTransparency = math.random(70, 95) / 100
+                }):Play()
+            end
+        end
+        wait(2)
+    end
+end)
+
+spawn(function()
+    while gui.Parent do
+        TweenService:Create(titleGradient, TweenInfo.new(4, Enum.EasingStyle.Linear), {
+            Offset = Vector2.new(1, 0)
+        }):Play()
+        wait(4)
+        titleGradient.Offset = Vector2.new(-1, 0)
+    end
+end)
+
+local dragging = false
+local dragStart, startPos
+
+mainContainer.InputBegan:Connect(function(input)
+    if not resizing and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainContainer.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - dragStart
+        mainContainer.Position = UDim2.new(
+            startPos.X.Scale, startPos.X.Offset + delta.X,
+            startPos.Y.Scale, startPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = false
+    end
+end)
+
+refreshTools()
+
+print("🚀 CODE QUEST Tool Duplicator loaded! Compact version with resize & minimize!")
